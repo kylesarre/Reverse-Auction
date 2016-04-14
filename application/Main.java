@@ -49,7 +49,7 @@ public class Main extends Application {
 	{
 
 	}
-
+	
 	@FXML
 	protected void createAccount(ActionEvent event)
 	{
