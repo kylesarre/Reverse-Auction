@@ -23,7 +23,6 @@ public class Auction
         this.location = location;
         this.description = description;
         this.relevance = 0;
-        this.date = date;
     }
     
     public String getName()

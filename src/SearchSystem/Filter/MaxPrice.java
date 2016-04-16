@@ -7,9 +7,9 @@ package SearchSystem.Filter;
 public class MaxPrice 
 {
     private double maxPrice;
-    public MaxPrice()
+    public MaxPrice(double price)
     {
-        this.maxPrice = maxPrice;
+        maxPrice = price;
     }
     public double getMaxPrice()
     {

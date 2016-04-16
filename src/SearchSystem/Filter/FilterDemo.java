@@ -47,7 +47,7 @@ public class FilterDemo {
             System.out.println("//////////////////////////////////////////////////////////");
             for(Auction auctionA: auctions)
             {
-                System.out.printf("%s\n%s\n%s\n%s\n\n", 
+                System.out.printf("%s%n%s%n%s\n%s%n%n", 
                 auctionA.getName(),auctionA.getTitle(),
                 auctionA.getLocation(),auctionA.getDescription());
             }
@@ -57,10 +57,14 @@ public class FilterDemo {
             System.out.println();
             for(Auction auctionB: filteredAuctions)
             {
-                System.out.printf("%s\n%s\n%s\n%s\n\n", 
+                System.out.printf("%s%n%s%n%s%n%s%n%n", 
                 auctionB.getName(),auctionB.getTitle(),
                 auctionB.getLocation(),auctionB.getDescription());
             }
+        }
+        catch(RuntimeException e)
+        {
+            throw e;
         }
         catch(Exception e)
         {
