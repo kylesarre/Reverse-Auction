@@ -1,6 +1,6 @@
 package SearchSystem.Filter;
 
-import SearchSystem.Auction;
+import ReverseAuctionSystem.Auction;
 import java.util.List;
 
 /**

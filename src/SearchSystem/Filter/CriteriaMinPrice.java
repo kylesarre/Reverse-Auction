@@ -1,11 +1,11 @@
 package SearchSystem.Filter;
 
-import SearchSystem.Auction;
+import ReverseAuctionSystem.Auction;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * a criteria for a lower bound in terms of the minimal bid price 
  * @author Kyle
  */
 public class CriteriaMinPrice implements Criteria
@@ -21,7 +21,7 @@ public class CriteriaMinPrice implements Criteria
         List<Auction> filteredAuction = new ArrayList<>();
         for(Auction auction: auctions)
         {
-            if(auction.getMinBid().getPrice() >= minPrice.getMinPrice())
+            if(auction.getPriceMin() >= minPrice.getMinPrice())
             {
                 filteredAuction.add(auction);
             }

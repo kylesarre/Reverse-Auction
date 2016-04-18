@@ -1,6 +1,6 @@
 package SearchSystem.Sorter;
 
-import SearchSystem.Auction;
+import ReverseAuctionSystem.Auction;
 import java.util.Comparator;
 
 /**
@@ -19,9 +19,9 @@ public class RelevancyComparator implements Comparator<Auction>
     @Override
     public int compare(Auction auction1, Auction auction2) 
     {
-        if(auction1.getRelevance() - auction2.getRelevance() < 0)
+        if(auction1.getRelevancy() - auction2.getRelevancy() < 0)
             return 1;
-        else if(auction1.getRelevance() - auction2.getRelevance() > 0)
+        else if(auction1.getRelevancy() - auction2.getRelevancy() > 0)
             return -1;
         else
             return 0;

@@ -1,6 +1,6 @@
 package SearchSystem.Filter;
 
-import SearchSystem.Auction;
+import ReverseAuctionSystem.Auction;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class CriteriaRelevancy implements Criteria
         List<Auction> filteredAuctions = new ArrayList<>();
         for(Auction auction: auctions)
         {
-            if(auction.getRelevance() >= relevancy)
+            if(auction.getRelevancy() >= relevancy)
             {
                 filteredAuctions.add(auction);
             }

@@ -1,6 +1,6 @@
 package SearchSystem.Filter;
 
-import SearchSystem.Auction;
+import ReverseAuctionSystem.Auction;
 import SearchSystem.Location;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class CriteriaLocation implements Criteria
 {
-    private final Location location;
-    public CriteriaLocation(Location location)
+    private final String location;
+    public CriteriaLocation(String location)
     {
         this.location = location;
     }
@@ -22,8 +22,8 @@ public class CriteriaLocation implements Criteria
         List<Auction> auctionByLoc = new ArrayList<>();
         for(Auction auction: auctions)
         {
-            if(auction.getLocation().equals(location.getLocation()))
-            {;
+            if(auction.getSeller().getLocation().equals(location))
+            {
                 auctionByLoc.add(auction);
             }
         }

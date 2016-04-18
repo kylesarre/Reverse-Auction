@@ -1,6 +1,6 @@
 package SearchSystem.Sorter;
 
-import SearchSystem.Auction;
+import ReverseAuctionSystem.Auction;
 import java.util.List;
 import java.util.Collections;
 
@@ -41,7 +41,7 @@ public class ListSorter
     {
         for(Auction auction : auctions)
         {
-            auction.setRelevance(input);
+            auction.setRelevancy(input);
         }
         Collections.sort(auctions, new RelevancyComparator());
     }
@@ -49,9 +49,9 @@ public class ListSorter
      * Sorts a list of auctions in order of descending date
      * @param auctions the list of auctions to be sorted
      */
-    public static void sortByDate(List<Auction> auctions)
+    public static void sortByEndDate(List<Auction> auctions)
     {
-        Collections.sort(auctions, new DateComparator());
+        Collections.sort(auctions, new EndDateComparator());
     }
     /**
      * reverses the current order of the list
