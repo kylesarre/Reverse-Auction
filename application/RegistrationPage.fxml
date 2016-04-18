@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RegistrationPage">
+   <children>
+      <AnchorPane prefHeight="300.0" prefWidth="500.0">
+         <children>
+            <Label alignment="CENTER" layoutX="93.0" layoutY="13.0" prefHeight="39.0" prefWidth="317.0" text="Register Account">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="emailBox" layoutX="210.0" layoutY="52.0" />
+            <TextField fx:id="compNameBox" layoutX="210.0" layoutY="87.0" />
+            <Label layoutX="120.0" layoutY="57.0" text="E-Mail Address:" />
+            <Label layoutX="115.0" layoutY="92.0" text="Company Name:" />
+            <Label layoutX="151.0" layoutY="127.0" text="Password:" />
+            <PasswordField fx:id="pwBox" layoutX="210.0" layoutY="122.0" />
+            <Label layoutX="105.0" layoutY="162.0" prefHeight="10.0" prefWidth="100.0" text="Confirm Password:" />
+            <PasswordField fx:id="pwConfirm" layoutX="210.0" layoutY="157.0" />
+            <RadioButton layoutX="141.0" layoutY="194.0" mnemonicParsing="false" onAction="#setServCo" text="This account is for a service company" />
+            <RadioButton layoutX="141.0" layoutY="214.0" mnemonicParsing="false" onAction="#setExplCo" text="This account is for an exploration company" />
+            <Button fx:id="register" layoutX="221.0" layoutY="262.0" mnemonicParsing="false" onAction="#regAttempt" text="Register" />
+            <Label fx:id="regWarningLabel" alignment="CENTER" layoutX="65.0" layoutY="238.0" prefHeight="17.0" prefWidth="370.0" textAlignment="CENTER" textFill="RED" />
+            <Button layoutX="409.0" layoutY="262.0" mnemonicParsing="false" onAction="#goBack" text="Cancel" />
+         </children></AnchorPane>
+   </children>
+</AnchorPane>
