@@ -194,18 +194,25 @@ public class Auction {
 	}
 	
 	// equality test
-	@Override
-	public boolean equals (Object o) {
-		Auction auction = (Auction) o;
-		
-		if (auction.auctionEnd.equals(this.auctionEnd)
-				&& auction.seller.equals(this.seller)
-				&& auction.item.equals(this.item)
-				&& (Double.compare(auction.priceMin, this.priceMin) == 0)
-				&& (Double.compare(auction.priceGuard, this.priceGuard) == 0))
-			return true;
-		
-		return false;
+        @Override
+	public boolean equals (Object obj) 
+        {
+            //checking if obj exists
+            if(obj == null)
+                return false;
+            //checking if the parameter and obj are of the same class
+            else if(obj.getClass() != this.getClass() )
+                return false;
+            //testing for equality once existence and class similarity are confirmed
+            else
+            {
+                Auction auction = (Auction)obj;
+                return (auction.auctionEnd.equals(this.auctionEnd)
+			&& auction.seller.equals(this.seller)
+			&& auction.item.equals(this.item)
+			&& (Double.compare(auction.priceMin, this.priceMin) == 0)
+			&& (Double.compare(auction.priceGuard, this.priceGuard) == 0));
+            }
 	}
 	
 	// need to override hashcode as well for equality test
