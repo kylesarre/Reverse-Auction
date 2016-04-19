@@ -1,4 +1,0 @@
-test@test.com
-password
-Test, Inc.
-Service
