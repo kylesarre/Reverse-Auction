@@ -1,87 +1,135 @@
 package application;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class Main extends Application
+{
+	private Stage stage;
+    private User loggedUser;
+    private final double MINIMUM_WINDOW_WIDTH = 500.0;
+    private final double MINIMUM_WINDOW_HEIGHT = 300.0;
+
 	@Override
 	public void start(Stage primaryStage) {
-		try {
-			//BorderPane root = new BorderPane();
-			Parent root = FXMLLoader.load(getClass().getResource("Root.fxml"));
-			Scene scene = new Scene(root,500,300);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+        try {
+            stage = primaryStage;
+            stage.setTitle("Reverse Auction System");
+            stage.setMinWidth(MINIMUM_WINDOW_WIDTH);
+            stage.setMinHeight(MINIMUM_WINDOW_HEIGHT);
+            gotoLogin();
+            primaryStage.show();
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
 	}
 
 	public static void main(String[] args) {
 		launch(args);
 	}
 
-	@FXML
-	private Button exitButton;
-	@FXML
-	private TextField usernameField;
-	@FXML
-	private PasswordField passwordField;
-
-	@FXML
-	protected void exitApplication(ActionEvent event)
+	public boolean login(String username, String password) throws IOException
 	{
-		Stage stage = (Stage) exitButton.getScene().getWindow();
-		stage.close();
+        LogIn loggingIn = new LogIn(username, password);
+        String loginToken = loggingIn.login();
+        //separate home pages necessary for each company type
+        //stage testing below-feel free to edit/correct
+        if(loginToken.equals("successful Service login") || loginToken.equals("successful Exploration login"))
+        {
+        	loggedUser = LogIn.generateUser(username);
+        	loginSuccessful();
+        	return true;
+        } else
+        	return false;
+        /*
+        else if(loginToken.equals("Incorrect Password"))
+        {
+            loginAlertLabel.setText("The password you entered is incorrect.");
+        }
+        else if(loginToken.equals("invalid Company type"))
+        {
+            loginAlertLabel.setText("company type error");
+        }
+        else
+        {
+            loginAlertLabel.setText("There is no account associated with the given email address.");
+        }*/
 	}
 
-	@FXML
-	protected void login(ActionEvent event) throws IOException
+    protected void gotoLogin()
+    {
+        try {
+            RootController login = (RootController) changeScene("Root.fxml");
+            login.setApp(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void loginSuccessful()
+    {
+        try {
+            HomeMenu login = (HomeMenu) changeScene("HomeMenu.fxml");
+            login.setApp(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /* sends the logged-in user to other parts of the program */
+    public User getLoggedUser()
+    {
+    	return loggedUser;
+    }
+
+    /* clears logged user and returns to the login screen */
+    public void logout()
+    {
+    	loggedUser = null;
+        try {
+            RootController root = (RootController) changeScene("Root.fxml");
+            root.setApp(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+	public void createAccount()
 	{
-            LogIn loggingIn = new LogIn(usernameField.getText(),passwordField.getText());
-            String loginToken = loggingIn.login();
-            //seperate home pages necessary for each company type
-            //stage testing below-feel free to edit/correct
-            if(loginToken.equals("successful Service login") || loginToken.equals("successful Exploration login")) 
-            {
-                Parent home = FXMLLoader.load(getClass().getResource("HomeMenu.fxml"));
-                Scene homeScene = new Scene(home,500,300);
-                Stage homeStage = new Stage();
-                homeStage.setScene(homeScene);
-                Stage stage = (Stage) exitButton.getScene().getWindow();
-                stage.close();
-                homeStage.show();
-                //Please configure Home Menu to include username and menu options
-            }
-            else if(loginToken.equals("Incorrect Password"))
-            {
-                System.out.println("The password you entered is incorrect.");
-                //Please replace with dialog in stage
-            }
-            else if(loginToken.equals("invalid Company type"))
-            {
-                System.out.print("company type error");
-            }
-            else
-            {
-                System.out.println("The email address you entered has not registered an account.");
-                //Please replace with dialog in stage
-            }
+		try {
+            RegistrationPage reg = (RegistrationPage) changeScene("RegistrationPage.fxml");
+            reg.setApp(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
 	}
-	
-	@FXML
-	protected void createAccount(ActionEvent event)
+
+	protected Initializable changeScene(String fxml) throws IOException
 	{
-            //please redirect to new stage with fields for username(email), company, company type, password, and confirmPassword
+        FXMLLoader loader = new FXMLLoader();
+        InputStream in = Main.class.getResourceAsStream(fxml);
+        loader.setBuilderFactory(new JavaFXBuilderFactory());
+        loader.setLocation(Main.class.getResource(fxml));
+        AnchorPane page;
+        try {
+            page = (AnchorPane) loader.load(in);
+        } finally {
+            in.close();
+        }
+        Scene scene = new Scene(page, 500, 300);
+        stage.setScene(scene);
+        stage.sizeToScene();
+        return (Initializable) loader.getController();
 	}
 }
