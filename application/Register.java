@@ -7,14 +7,14 @@ import java.util.Scanner;
 
 //to use this class in the registration page, create a Register object with the appropriate fields then use the method register()
 
-public class Register
+public class Register 
 {
     private String username;
     private String company;
     private String companyType;
     private String password;
     private String confirmPassword;
-
+    
     public Register(String username, String company, String companyType, String password, String confirmPassword)
     {
         this.username=username;
@@ -23,12 +23,12 @@ public class Register
         this.companyType=companyType;
         this.confirmPassword=confirmPassword;
     }
-
+    
     public String register()
     {
         if(findUser()==true)
         {
-            return "Account already exists.";
+            return "account already exists";
         }
         else
         {
@@ -37,19 +37,19 @@ public class Register
                 if(companyType.equalsIgnoreCase("Service") || companyType.equalsIgnoreCase("Exploration"))
                 {
                     writeUserFile();
-                    return "Account successfully created.";
+                    return "account successfully created";
                 }
                 else
-                    return "Invalid company type.";
+                    return "invalid company type";
             }
             else
-                return "Passwords do not match.";
+                return "passwords do not match";
         }
     }
-
+    
     private void writeUserFile()
     {
-        try (PrintWriter writeUser = new PrintWriter(new File("./docs/userfiles/"+username+".txt")))
+        try (PrintWriter writeUser = new PrintWriter(new File("./docs/userfiles/"+username+".txt"))) 
                 {
                     writeUser.println(username);
                     writeUser.println(password);
@@ -62,7 +62,7 @@ public class Register
             System.out.println(e);
         }
     }
-
+    
     private boolean findUser()
     {
         boolean userExists = false;
@@ -83,6 +83,6 @@ public class Register
         }
         return userExists;
     }
-
+    
 }
 
