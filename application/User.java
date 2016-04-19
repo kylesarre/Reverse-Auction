@@ -7,23 +7,23 @@ import java.util.Scanner;
 
 //important UI comments on editProfile(): line 54
 
-public class User 
+public class User
 {
     private String username;
     private String password;
     private String company;
     private String companyType;
     private String profile;
-    
+
     public User(String username) throws FileNotFoundException
     {
-        try (Scanner readUser = new Scanner(new File("./docs/userfiles/"+username+".txt"))) 
+        try (Scanner readUser = new Scanner(new File("./docs/userfiles/"+username+".txt")))
         {
+        	readUser.nextLine();
             this.username = username;
-            password = readUser.next();
-            readUser.nextLine();
+            password = readUser.nextLine();
             company = readUser.nextLine();
-            companyType = readUser.next();
+            companyType = readUser.nextLine();
             while(readUser.hasNextLine())
             {
                 profile = profile + readUser.nextLine() + "\n";
@@ -31,27 +31,27 @@ public class User
             readUser.close();
         }
     }
-    
+
     public String getUsername()
     {
         return username;
     }
-    
+
     public String getCompany()
     {
         return company;
     }
-    
+
     public String getType()
     {
         return companyType;
     }
-    
+
     public String getProfile()
     {
         return profile;
     }
-    
+
     //for this method, the UI should pull up a text box containing the results of getProfile()
     //the user should be able to edit the text in the box and click 'submit'
     //when the submit button is pressed, activate this method
@@ -61,5 +61,5 @@ public class User
         editProfile.print(username + "\n" + password + "\n" + company + "\n" + companyType + "\n" + newProfile);
         editProfile.close();
     }
-    
+
 }

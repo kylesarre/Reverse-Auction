@@ -8,11 +8,11 @@ import java.util.Scanner;
 // then use login() and if successful, generateUser() and
 // send the User object and the user to the homepage for their specific companyType()
 
-public class LogIn 
+public class LogIn
 {
     private String username;
     private String password;
-    
+
     public LogIn(String username, String password)
     {
         this.username=username;
@@ -50,12 +50,18 @@ public class LogIn
             return "No Account";
         }
     }
-    
+
     public User generateUser() throws FileNotFoundException
     {
         return new User(username);
     }
-    
+
+    /* Used for the Main class to set the logged-in user*/
+    public static User generateUser(String username) throws FileNotFoundException
+    {
+        return new User(username);
+    }
+
     private boolean findUsername(String username)
     {
         boolean userExists = false;
@@ -76,11 +82,11 @@ public class LogIn
         }
         return userExists;
     }
-    
+
     private boolean findPassword(String username, String password)
     {
         boolean passwordVerified=false;
-        try (Scanner readUser = new Scanner(new File("./docs/userfiles/"+username+".txt"))) 
+        try (Scanner readUser = new Scanner(new File("./docs/userfiles/"+username+".txt")))
                 {
                     String confirmPassword;
                     readUser.next();
@@ -97,10 +103,10 @@ public class LogIn
         }
         return passwordVerified;
     }
-    
+
     private String companyType()
     {
-        try (Scanner readUser = new Scanner(new File("./docs/userfiles/"+username+".txt"))) 
+        try (Scanner readUser = new Scanner(new File("./docs/userfiles/"+username+".txt")))
                 {
                     readUser.next();
                     readUser.next();
