@@ -2,7 +2,6 @@ package SearchSystem;
 
 import SearchSystem.Filter.Criteria;
 import SearchSystem.Filter.CriteriaLocation;
-import SearchSystem.Filter.CriteriaName;
 import SearchSystem.Filter.OrCriteria;
 import java.io.File;
 import java.util.ArrayList;
