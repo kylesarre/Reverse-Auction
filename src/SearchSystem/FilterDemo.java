@@ -13,11 +13,10 @@ import java.util.Scanner;
  * @author Kyle Sarre
  * @version 0
  */
+/*
 public class FilterDemo {
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) 
     {
          try
@@ -69,3 +68,4 @@ public class FilterDemo {
     }
     
 }
+    */
