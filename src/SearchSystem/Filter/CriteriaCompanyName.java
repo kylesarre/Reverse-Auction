@@ -1,7 +1,6 @@
 package SearchSystem.Filter;
 
 import ReverseAuctionSystem.Auction;
-import SearchSystem.Name;
 import java.util.ArrayList;
 import java.util.List;
 
