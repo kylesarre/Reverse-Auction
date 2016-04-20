@@ -1,6 +1,7 @@
 package SearchSystem.Filter;
 
 import ReverseAuctionSystem.Auction;
+import SearchSystem.Location;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class CriteriaLocation implements Criteria
         this.location = location;
     }
     @Override
-    public List<Auction> meetCriteria(List<Auction> auctions)
+    public List<Auction> meetCriteria(List<Auction> auctions) 
     {
         List<Auction> auctionByLoc = new ArrayList<>();
         for(Auction auction: auctions)
@@ -28,5 +29,5 @@ public class CriteriaLocation implements Criteria
         }
         return auctionByLoc;
     }
-
+    
 }
