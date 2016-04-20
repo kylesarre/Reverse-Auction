@@ -1,7 +1,6 @@
 package SearchSystem.Filter;
 
 import ReverseAuctionSystem.Auction;
-import SearchSystem.Name;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +11,13 @@ import java.util.List;
 public class CriteriaCompanyName implements Criteria
 {
     private String companyName;
-    
+
     public CriteriaCompanyName(String name)
     {
         this.companyName = name;
     }
     @Override
-    public List<Auction> meetCriteria(List<Auction> auctions) 
+    public List<Auction> meetCriteria(List<Auction> auctions)
     {
         List<Auction> locationAuction = new ArrayList<>();
         for(Auction auction: auctions)
@@ -29,5 +28,5 @@ public class CriteriaCompanyName implements Criteria
             }
         }
         return locationAuction;
-    }  
+    }
 }
