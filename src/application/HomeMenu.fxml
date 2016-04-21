@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.HomeMenu">
-   <children>
-      <AnchorPane prefHeight="300.0" prefWidth="500.0">
-         <children>
-            <Label alignment="CENTER" layoutX="173.0" layoutY="14.0" prefHeight="31.0" prefWidth="155.0" text="Main Menu" textAlignment="CENTER">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="welcomeText" layoutX="14.0" layoutY="45.0" prefHeight="17.0" prefWidth="167.0" text="Hello, (USERNAME)" />
-            <Button fx:id="exitButton" layoutX="451.0" layoutY="261.0" mnemonicParsing="false" onAction="#exitApplication" text="Exit" />
-            <Button layoutX="385.0" layoutY="261.0" mnemonicParsing="false" onAction="#logout" text="Log Out" />
-            <Button layoutX="205.0" layoutY="70.0" mnemonicParsing="false" text="View Auctions" />
-            <Button layoutX="212.0" layoutY="110.0" mnemonicParsing="false" onAction="#gotoActiveProfile" text="Your Profile" />
-            <Button layoutX="203.0" layoutY="150.0" mnemonicParsing="false" text="Search Profiles" />
-         </children>
-      </AnchorPane>
-   </children>
+<AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.HomeMenu">
+  <children>
+    <AnchorPane prefHeight="300.0" prefWidth="500.0">
+      <children>
+        <Label alignment="CENTER" layoutX="173.0" layoutY="14.0" prefHeight="31.0" prefWidth="155.0" text="Main Menu" textAlignment="CENTER">
+          <font>
+            <Font size="18.0" />
+          </font>
+        </Label>
+        <Label fx:id="welcomeText" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="45.0" prefHeight="17.0" prefWidth="475.9998779296875" text="Hello, (USERNAME)" textAlignment="CENTER" />
+        <Button fx:id="exitButton" layoutX="451.0" layoutY="261.0" mnemonicParsing="false" onAction="#exitApplication" text="Exit" />
+        <Button layoutX="385.0" layoutY="261.0" mnemonicParsing="false" onAction="#logout" text="Log Out" />
+        <Button layoutX="205.0" layoutY="70.0" mnemonicParsing="false" text="View Auctions" />
+        <Button layoutX="212.0" layoutY="110.0" mnemonicParsing="false" text="Your Profile" />
+        <Button layoutX="203.0" layoutY="150.0" mnemonicParsing="false" text="Search Profiles" />
+      </children>
+    </AnchorPane>
+  </children>
 </AnchorPane>

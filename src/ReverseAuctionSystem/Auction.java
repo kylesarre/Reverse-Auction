@@ -3,10 +3,19 @@ package ReverseAuctionSystem;
 import ReverseAuctionSystem.Utilities.AlertType;
 import ReverseAuctionSystem.Utilities.Alert;
 import SearchSystem.Sorter.ListSorter;
+import application.User;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
-public class Auction {
+public class Auction 
+{
 	private Date auctionEnd;
 	private ArrayList<Bid> allBids;
 	private User seller;
@@ -16,16 +25,8 @@ public class Auction {
 	private boolean reservePriceReached;
         private double relevancy;
 
-	public Auction (Date auctionEnd, User user, Item item) {
-
-		initDefault();
-		this.auctionEnd = auctionEnd;
-		seller = user;
-		this.item = item;
-
-	}
-
-	public Auction (Date auctionEnd, User user, Item item, double priceMin, double priceGuard) {
+	public Auction (Date auctionEnd, User user, Item item, double priceMin, double priceGuard) throws FileNotFoundException, IOException
+        {
 
 		initDefault();
 		this.auctionEnd = auctionEnd;
@@ -33,9 +34,47 @@ public class Auction {
 		this.item = item;
 		this.priceMin = priceMin;
 		this.priceGuard = priceGuard;
-
+                File ListFile = new File("./docs/AuctionList.txt");
+                Scanner readListFile = new Scanner(ListFile);
+                int auctionID;
+                boolean auctionIsOnFile = false;
+                while(readListFile.hasNextInt())
+                {
+                    if(readListFile.nextInt() == item.getId())
+                    {
+                        auctionIsOnFile = true;
+                    }
+                }
+                if(!auctionIsOnFile)
+                {
+                    //write to auction list
+                    FileWriter fileWriter = new FileWriter(new File("./docs/AuctionList.txt"), true);
+                    BufferedWriter buffWriter = new BufferedWriter(fileWriter);
+                    PrintWriter writeToList = new PrintWriter(buffWriter);
+                    writeToList.println(item.getId());
+                    writeToList.close();
+                    //
+                    PrintWriter writeToFile = new PrintWriter(new File("./docs/Auctions/" + item.getId() + ".txt"));
+                    int auctionYear = auctionEnd.getYear() + 1900;
+                    writeToFile.println(auctionEnd.getMonth() + " " + auctionEnd.getDay() + " " + auctionYear);
+                    writeToFile.println(user.getUsername());
+                    writeToFile.println(user.getCompany());
+                    writeToFile.println(priceMin);
+                    writeToFile.println(priceGuard);
+                    writeToFile.println(item.getId());
+                    writeToFile.println();
+                    writeToFile.println(item.getDescription());
+                    writeToFile.close();
+                    //
+                    FileWriter fileWriter2 = new FileWriter(new File("./docs/userfiles/"+user.getUsername()+".auctions.txt"), true);
+                    BufferedWriter buffWriter2 = new BufferedWriter(fileWriter2);
+                    PrintWriter writeToUser = new PrintWriter(buffWriter2);
+                    writeToUser.println(item.getId());
+                    writeToUser.close();
+                }
 	}
 	
+        
 	private void initDefault(){
 
 		allBids = new ArrayList<Bid>();
@@ -45,19 +84,24 @@ public class Auction {
 		reservePriceReached = false;
 
 	}
-
+        
 	public Date getAuctionEnd() {
 		return auctionEnd;
 	}
 
-	public User getSeller() {
+	public User getUser() {
 		return seller;
 	}
+        
+        public void setMinPrice(double priceMin)
+        {
+            this.priceMin = priceMin;
+        }
 
 	public ArrayList<Bid> getAllBids() {
 		return allBids;
 	}
-
+ 
 	public Item getItem() {
 		return item;
 	}
@@ -73,6 +117,7 @@ public class Auction {
 	public AuctionState getState() {
 		return state;
 	}
+
         public double getRelevancy()
         {
             return relevancy;
@@ -92,8 +137,8 @@ public class Auction {
 			ArrayList<User> users = this.findUsers();
 			Alert alert = new Alert(this, AlertType.AUCTION_CANCELLED);
 			
-			for (User u : users)
-				u.onAlert (alert);
+			//for (User u : users)
+				//u.onAlert (alert);
 		}
 		
 		this.state = state;
@@ -101,9 +146,24 @@ public class Auction {
 		return true;
 
 	}
-
-	//
-	public boolean addBid (Bid bid) {
+        
+        //checks if the auction has ended
+        public boolean isOver()
+        {
+            Date date = new Date();
+            if(date.after(auctionEnd))
+            {
+                setState(AuctionState.AUCTION_ENDED);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+	
+	public boolean addBid (Bid bid) 
+        {
 		Alert alert;
 
 		// if auction is invalid
@@ -112,17 +172,16 @@ public class Auction {
 			return false;
 
 		// it is not possible to bid over the minimum price
-		if(bid.getPrice() < this.getPriceMin())
+		if(bid.getPrice() > this.getPriceMin())
 			return false;
 		
 		// seller cannot bid on his own auction
-		if (bid.getUser().equals(this.seller))
-			return false;
+	//*     if (bid.getUser().equals(this.seller))
+	//*         return false;
 
 		// disable the auction if the end date is reached
-		Date date = new Date();
-		if(date.after(auctionEnd)){
-			setState(AuctionState.AUCTION_ENDED);
+		if(isOver())
+                {
 			return false;
 		}
 		
@@ -152,7 +211,7 @@ public class Auction {
 
 		if(!allBids.get(allBids.size()-i).getUser().equals(bid.getUser())){
 			alert = new Alert(this, AlertType.LOWER_OFFER_HAPPENED);
-			allBids.get(allBids.size()-i).getUser().onAlert(alert);
+			//allBids.get(allBids.size()-i).getUser().onAlert(alert);
 		}
 
 		// send an alert to the seller when the reserve price is reached
@@ -163,7 +222,7 @@ public class Auction {
 		) {
 			this.reservePriceReached = true;
 			alert = new Alert(this, AlertType.RESERVE_PRICE_REACHED);
-			this.seller.onAlert(alert);
+			//this.seller.onAlert(alert);
 		}
 
 		// bid has been correctly added and alerts sent
@@ -194,11 +253,11 @@ public class Auction {
 	public ArrayList<User> findUsers () {
 		ArrayList<User> Users = new ArrayList<User>();
 		
-		for (Bid b : allBids) {
-			if (Users.contains(b.getUser()) == false) {
-				Users.add(b.getUser());
-			}
-		}
+		//for (Bid b : allBids) {
+		//	if (Users.contains(b.getUser()) == false) {
+		//		Users.add(b.getUser());
+		//	}
+		//}
 		
 		return Users;
 	}
