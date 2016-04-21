@@ -26,7 +26,7 @@ public class Bid
         {
             if(price < getAuction(auctionId).getPriceMin())
             {
-                setPriceMin(auctionId, price);
+                //setPriceMin(auctionId, price);
                 Auction auction = getAuction(auctionId);
                 this.id = generateId();
                 this.auctionId = auctionId;
@@ -68,6 +68,7 @@ public class Bid
                     PrintWriter writeToAuction = new PrintWriter(buffWriter3);
                     writeToAuction.println(String.format("%8d  %.2f", id, price));
                     writeToAuction.close();
+                    setPriceMin(auctionId, price);
                     
                 }
             }
@@ -120,6 +121,7 @@ public class Bid
                 else
                     replacementAuctionData = replacementAuctionData + auctionScanner.nextLine() + "%n";
             }
+            System.out.println(String.format(replacementAuctionData));
             PrintWriter overrideOldAuction = new PrintWriter(new File("./docs/Auctions/"+auctionId+".txt"));
             overrideOldAuction.print(String.format(replacementAuctionData));
             overrideOldAuction.close();
