@@ -4,8 +4,11 @@ import ReverseAuctionSystem.Utilities.AlertType;
 import ReverseAuctionSystem.Utilities.Alert;
 import SearchSystem.Sorter.ListSorter;
 import application.User;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,7 +25,7 @@ public class Auction
 	private boolean reservePriceReached;
         private double relevancy;
 
-	public Auction (Date auctionEnd, User user, Item item, double priceMin, double priceGuard) throws FileNotFoundException
+	public Auction (Date auctionEnd, User user, Item item, double priceMin, double priceGuard) throws FileNotFoundException, IOException
         {
 
 		initDefault();
@@ -44,8 +47,16 @@ public class Auction
                 }
                 if(!auctionIsOnFile)
                 {
+                    //write to auction list
+                    FileWriter fileWriter = new FileWriter(new File("./docs/AuctionList.txt"), true);
+                    BufferedWriter buffWriter = new BufferedWriter(fileWriter);
+                    PrintWriter writeToList = new PrintWriter(buffWriter);
+                    writeToList.println(item.getId());
+                    writeToList.close();
+                    //
                     PrintWriter writeToFile = new PrintWriter(new File("./docs/Auctions/" + item.getId() + ".txt"));
-                    writeToFile.println(auctionEnd.getMonth() + "-" + auctionEnd.getDay() + "-" + auctionEnd.getYear());
+                    int auctionYear = auctionEnd.getYear() + 1900;
+                    writeToFile.println(auctionEnd.getMonth() + " " + auctionEnd.getDay() + " " + auctionYear);
                     writeToFile.println(user.getUsername());
                     writeToFile.println(user.getCompany());
                     writeToFile.println(priceMin);
@@ -53,6 +64,13 @@ public class Auction
                     writeToFile.println(item.getId());
                     writeToFile.println();
                     writeToFile.println(item.getDescription());
+                    writeToFile.close();
+                    //
+                    FileWriter fileWriter2 = new FileWriter(new File("./docs/userfiles/"+user.getUsername()+".auctions.txt"), true);
+                    BufferedWriter buffWriter2 = new BufferedWriter(fileWriter2);
+                    PrintWriter writeToUser = new PrintWriter(buffWriter2);
+                    writeToUser.println(item.getId());
+                    writeToUser.close();
                 }
 	}
 	
@@ -71,9 +89,14 @@ public class Auction
 		return auctionEnd;
 	}
 
-	public User getSeller() {
+	public User getUser() {
 		return seller;
 	}
+        
+        public void setMinPrice(double priceMin)
+        {
+            this.priceMin = priceMin;
+        }
 
 	public ArrayList<Bid> getAllBids() {
 		return allBids;
@@ -153,8 +176,8 @@ public class Auction
 			return false;
 		
 		// seller cannot bid on his own auction
-		if (bid.getUser().equals(this.seller))
-			return false;
+	//*     if (bid.getUser().equals(this.seller))
+	//*         return false;
 
 		// disable the auction if the end date is reached
 		if(isOver())

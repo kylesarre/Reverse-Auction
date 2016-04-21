@@ -6,12 +6,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import application.User;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class AuctionList 
 {
-    private List<Auction> auctions;
+    private List<Auction> auctions = new ArrayList<Auction>();
     
-    public AuctionList() throws FileNotFoundException
+    public AuctionList() throws FileNotFoundException, IOException
     {
         File ListFile = new File("./docs/AuctionList.txt");
         Scanner readListFile = new Scanner(ListFile);
@@ -30,18 +32,16 @@ public class AuctionList
             String location = readAuctionFile.nextLine();
             double priceMin = readAuctionFile.nextDouble();
             double priceGuard = readAuctionFile.nextDouble();
-            readAuctionFile.nextLine();
-            readAuctionFile.nextLine();
             String description = "";
             while(readAuctionFile.hasNextLine() && !readAuctionFile.next().equals("Bids:"))
             {
                 description = description + readAuctionFile.nextLine() + "\n";
             }
-            while(readAuctionFile.hasNextLine())
-            {
+            //while(readAuctionFile.hasNextLine())
+            //{
                 //create Bid
                 //auction.addBid();
-            }
+            //}
             Item item = new Item(auctionID, description, location);
             Auction auction = new Auction(date, user, item, priceMin, priceGuard);
             auctions.add(auction);
