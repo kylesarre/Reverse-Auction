@@ -41,6 +41,12 @@ public class User
     {
         return company;
     }
+    
+    public void setCompany(String company)
+    {
+        this.company = company;
+    }
+
 
     public String getType()
     {
@@ -49,8 +55,11 @@ public class User
 
     public String getProfile()
     {
-        return profile;
-    }
+    	if(profile != null)
+    		return profile;
+    	else
+    		return "";
+    	}
 
     //for this method, the UI should pull up a text box containing the results of getProfile()
     //the user should be able to edit the text in the box and click 'submit'
@@ -58,8 +67,9 @@ public class User
     public void editProfile(String newProfile) throws FileNotFoundException
     {
         PrintWriter editProfile = new PrintWriter(new File("./docs/userfiles/"+username+".txt"));
-        editProfile.print(username + "\n" + password + "\n" + company + "\n" + companyType + "\n" + newProfile);
+        editProfile.printf("%s%n%s%n%s%n%s%n%s%n", username, password, company, companyType, newProfile);
         editProfile.close();
+        profile = newProfile;
     }
 
 }
