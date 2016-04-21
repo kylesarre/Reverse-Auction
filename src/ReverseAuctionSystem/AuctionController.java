@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package ReverseAuctionSystem;
+import java.io.IOException;
 import java.util.List;
 import java.util.Date;
 /**
@@ -62,7 +63,7 @@ public class AuctionController
      */
     public String grabProfileDesc()
     {
-        return auction.getUser().getProfile();
+        return auction.getUser().getCompany();
     }
     public String grabJobDesc()
     {
@@ -72,9 +73,13 @@ public class AuctionController
     {
         return auction.getItem().getLocation();
     }
-    public void editPriceMin(double input)
+    public void setPriceMin(double input) throws IOException
     {
-        auction.setMinPrice(input);
+        auction.setPriceMin(input);
+    }
+    public void setCompanyName(String input)
+    {
+        auction.getUser().setCompany(input);
     }
     /**
      * updates the user interface element in the Controller

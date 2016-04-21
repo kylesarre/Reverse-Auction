@@ -42,8 +42,8 @@ public class AuctionList
                 //create Bid
                 //auction.addBid();
             //}
-            Item item = new Item(auctionID, description, location);
-            Auction auction = new Auction(date, user, item, priceMin, priceGuard);
+            Item item = new Item(description, location);
+            Auction auction = new Auction(auctionID, date, user, item, priceMin, priceGuard);
             auctions.add(auction);
         }   
     }
