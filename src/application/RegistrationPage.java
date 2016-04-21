@@ -6,17 +6,13 @@ import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
 
 public class RegistrationPage implements Initializable
 {
@@ -41,10 +37,10 @@ public class RegistrationPage implements Initializable
 
 
 	private String companySelection = "None";
-	private Stage stage;
 	private Main application;
 
-    public void setApp(Main application){
+    public void setApp(Main application)
+    {
         this.application = application;
         servCoButton.setToggleGroup(group);
         explCoButton.setToggleGroup(group);
@@ -87,20 +83,6 @@ public class RegistrationPage implements Initializable
 	protected void goBack(ActionEvent event) throws IOException
 	{
 		application.gotoLogin();
-	}
-
-	protected Parent changeScene(String fxml) throws IOException
-	{
-		Parent page = (Parent) FXMLLoader.load(getClass().getResource(fxml));
-        Scene scene = stage.getScene();
-        if (scene == null) {
-            scene = new Scene(page, 500, 300);
-            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-            stage.setScene(scene);
-        } else {
-            stage.getScene().setRoot(page);
-        }
-        return page;
 	}
 
 	@Override

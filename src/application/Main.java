@@ -5,11 +5,9 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -48,7 +46,7 @@ public class Main extends Application
         if(loginToken.equals("successful Service login") || loginToken.equals("successful Exploration login"))
         {
         	loggedUser = LogIn.generateUser(username);
-        	loginSuccessful();
+        	gotoHomeMenu();
         	return true;
         } else
         	return false;
@@ -77,11 +75,21 @@ public class Main extends Application
         }
     }
 
-    private void loginSuccessful()
+    public void gotoHomeMenu()
     {
         try {
             HomeMenu login = (HomeMenu) changeScene("HomeMenu.fxml");
             login.setApp(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void gotoProfilePage()
+    {
+        try {
+            ProfileController prof = (ProfileController) changeScene("ProfilePage.fxml");
+            prof.setApp(this);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
