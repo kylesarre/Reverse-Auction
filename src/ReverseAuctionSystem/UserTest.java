@@ -1,4 +1,4 @@
-/**
+
 
 package ReverseAuctionSystem;
 
@@ -10,11 +10,13 @@ import java.util.Date;
 import java.util.Locale;
 import org.junit.Before;
 import org.junit.Test;
+import application.User;
 
 
-public class UserTest {
+public class UserTest 
+{
 
-	private Date alreadyDone;
+	/**private Date alreadyDone;
 	private Date neverEnds;
 
 	@Before
@@ -27,8 +29,8 @@ public class UserTest {
 	@Test
 	public void testUserSellStandard() {
 
-		PsuedoUser seller = new PsuedoUser("JohnS", "John Sellers", "Exxon", "LA");
-		Item item = new Item(0, "description");
+		User seller = new User("bob@yahoo.com");
+		Item item = new Item(0, "description", "location");
 		seller.sell(neverEnds, item);
 
 		assertEquals(1, seller.getAuctionList().size());
@@ -39,8 +41,8 @@ public class UserTest {
 	@Test
 	public void testUserSellNotSeller() {
 
-		PsuedoUser seller = new PsuedoUser("JohnS", "John Sellers", "Exxon", "LA");
-		Item item = new Item(0, "description");
+		User seller = new User("JohnS", "John Sellers", "Exxon", "LA");
+		Item item = new Item(0, "description", "location");
 		seller.setSeller(false);
 		seller.sell(neverEnds, item);
 
@@ -52,9 +54,9 @@ public class UserTest {
 	@Test
 	public void testUserBidStandard() {
 
-		PsuedoUser seller = new PsuedoUser("seller", "John Sellers", "Exxon","LA");
-		PsuedoUser buyer = new PsuedoUser("buyer", "Jeff Serviceman", "Spartan","TX");
-		Item item = new Item(0, "description");
+		User seller = new User("seller", "John Sellers", "Exxon","LA");
+		User buyer = new User("buyer", "Jeff Serviceman", "Spartan","TX");
+		Item item = new Item(0, "description", "location");
 		System.out.println(neverEnds.toString());
 		seller.sell(neverEnds,item);
 		seller.getAuctionList().get(0).setState(AuctionState.AUCTION_PUBLISHED);
@@ -68,9 +70,9 @@ public class UserTest {
 	@Test
 	public void testUserBidUnpublished() {
 
-		PsuedoUser seller = new PsuedoUser("seller", "John Sellers", "Exxon","LA");
-		PsuedoUser buyer = new PsuedoUser("buyer", "Jeff Serviceman", "Spartan", "TX");
-		Item item = new Item(0, "description");
+		User seller = new User("seller", "John Sellers", "Exxon","LA");
+		User buyer = new User("buyer", "Jeff Serviceman", "Spartan", "TX");
+		Item item = new Item(0, "description", "location");
 		seller.sell(neverEnds, item);
 
 		buyer.bid(seller.getAuctionList().get(0), 10);
@@ -82,9 +84,9 @@ public class UserTest {
 	@Test
 	public void testUserBidCancelled() {
 
-		PsuedoUser seller = new PsuedoUser("seller", "John Sellers", "Exxon", "LA");
-		PsuedoUser buyer = new PsuedoUser("buyer", "Jeff Serviceman", "Spartan", "TX");
-		Item item = new Item(0, "description");
+		User seller = new User("seller", "John Sellers", "Exxon", "LA");
+		User buyer = new User("buyer", "Jeff Serviceman", "Spartan", "TX");
+		Item item = new Item(0, "description", "location");
 		seller.sell(neverEnds, item);
 		seller.getAuctionList().get(0).setState(AuctionState.AUCTION_CANCELED);
 
@@ -97,9 +99,9 @@ public class UserTest {
 	@Test
 	public void testUserBidEnded() {
 
-		PsuedoUser seller = new PsuedoUser("seller", "John Sellers", "Exxon", "LA");
-		PsuedoUser buyer = new PsuedoUser("buyer", "Jeff Serviceman", "Spartan", "TX");
-		Item item = new Item(0, "description");
+		User seller = new User("seller", "John Sellers", "Exxon", "LA");
+		User buyer = new User("buyer", "Jeff Serviceman", "Spartan", "TX");
+		Item item = new Item(0, "description", "location");
 		seller.sell(alreadyDone, item);
 
 		buyer.bid(seller.getAuctionList().get(0), 10);
@@ -111,9 +113,9 @@ public class UserTest {
 	@Test
 	public void testUserBidBelowMinimum() {
 
-		PsuedoUser seller = new PsuedoUser("seller", "John Sellers", "Exxon", "LA");
-		PsuedoUser buyer = new PsuedoUser("buyer", "Jeff Serviceman", "Spartan", "TX");
-		Item item = new Item(0, "description");
+		User seller = new User("seller", "John Sellers", "Exxon", "LA");
+		User buyer = new User("buyer", "Jeff Serviceman", "Spartan", "TX");
+		Item item = new Item(0, "description", "location");
 		seller.sell(neverEnds, item, 10, 20);
 		seller.getAuctionList().get(0).setState(AuctionState.AUCTION_PUBLISHED);
 
@@ -126,9 +128,9 @@ public class UserTest {
 	@Test
 	public void testUserBidNotBuyer() {
 
-		PsuedoUser seller = new PsuedoUser("seller", "John Sellers", "Exxon", "LA");
-		PsuedoUser buyer = new PsuedoUser("buyer", "Jeff Serviceman", "Spartan", "TX");
-		Item item = new Item(0, "description");
+		User seller = new User("seller", "John Sellers", "Exxon", "LA");
+		User buyer = new User("buyer", "Jeff Serviceman", "Spartan", "TX");
+		Item item = new Item(0, "description", "location");
 		seller.sell(neverEnds, item);
 		seller.getAuctionList().get(0).setState(AuctionState.AUCTION_PUBLISHED);
 		buyer.setBuyer(false);
@@ -142,9 +144,9 @@ public class UserTest {
 	@Test
 	public void testUserAlertReached() {
 
-		PsuedoUser seller = new PsuedoUser("seller", "John Sellers", "Exxon","LA");
-		PsuedoUser buyer = new PsuedoUser("buyer", "Jeff Serviceman", "Spartan", "TX");
-		Item item = new Item(0, "description");
+		User seller = new User("seller", "John Sellers", "Exxon","LA");
+		User buyer = new User("buyer", "Jeff Serviceman", "Spartan", "TX");
+		Item item = new Item(0, "description", "location");
 		seller.sell(neverEnds, item, 0, 10.01);
 		seller.getAuctionList().get(0).setState(AuctionState.AUCTION_PUBLISHED);
 		buyer.bid(seller.getAuctionList().get(0), 10);
@@ -158,9 +160,9 @@ public class UserTest {
 	@Test
 	public void testUserAlertCancelled() {
 
-		PsuedoUser seller = new PsuedoUser("seller", "John Sellers", "Exxon", "LA");
-		PsuedoUser buyer = new PsuedoUser("buyer", "Jeff Serviceman", "Spartan", "TX");
-		Item item = new Item(0, "description");
+		User seller = new User("seller", "John Sellers", "Exxon", "LA");
+		User buyer = new User("buyer", "Jeff Serviceman", "Spartan", "TX");
+		Item item = new Item(0, "description", "location");
 		seller.sell(neverEnds, item);
 		seller.getAuctionList().get(0).setState(AuctionState.AUCTION_PUBLISHED);
 		buyer.bid(seller.getAuctionList().get(0), 10);
@@ -175,11 +177,11 @@ public class UserTest {
 	@Test
 	public void testUserAlertLowerOffer() {
 
-		PsuedoUser seller = new PsuedoUser("seller", "John Sellers", "Exxon", "LA");
-		PsuedoUser buyer = new PsuedoUser("buyer", "Jeff Serviceman", "Spartan", "TX");
-		PsuedoUser buyer2 = new PsuedoUser("buyer2", "Bob Serviceman2", "STS", "MI");
-		PsuedoUser buyer3 = new PsuedoUser("buyer3", "Jack Meoff", "S3", "MS");
-		Item item = new Item(0, "description");
+		User seller = new User("seller", "John Sellers", "Exxon", "LA");
+		User buyer = new User("buyer", "Jeff Serviceman", "Spartan", "TX");
+		User buyer2 = new User("buyer2", "Bob Serviceman2", "STS", "MI");
+		User buyer3 = new User("buyer3", "Jack Meoff", "S3", "MS");
+		Item item = new Item(0, "description", "location");
 		seller.sell(neverEnds, item, 0, 100);
 		seller.getAuctionList().get(0).setState(AuctionState.AUCTION_PUBLISHED);
 
@@ -202,11 +204,11 @@ public class UserTest {
 	@Test
 	public void testUserAlertLowerOfferDisabled() {
 
-		PsuedoUser seller = new PsuedoUser("seller", "John Sellers", "Exxon", "LA");
-		PsuedoUser buyer = new PsuedoUser("buyer", "Jeff Serviceman", "Spartan", "TX");
+		User seller = new User("seller", "John Sellers", "Exxon", "LA");
+		User buyer = new User("buyer", "Jeff Serviceman", "Spartan", "TX");
 		buyer.setActiveAlert(AlertType.LOWER_OFFER_HAPPENED, false);
-		PsuedoUser buyer2 = new PsuedoUser("buyer2", "Bob Serviceman2", "STS", "MI");
-		Item item = new Item(0, "description");
+		User buyer2 = new User("buyer2", "Bob Serviceman2", "STS", "MI");
+		Item item = new Item(0, "description", "location");
 		seller.sell(neverEnds, item, 0, 100);
 		seller.getAuctionList().get(0).setState(AuctionState.AUCTION_PUBLISHED);
 
@@ -221,10 +223,10 @@ public class UserTest {
 	@Test
 	public void testUserMultiAlert() {
 
-		PsuedoUser seller = new PsuedoUser("seller", "John Sellers", "Exxon", "LA");
-		PsuedoUser buyer = new PsuedoUser("buyer", "Jeff Serviceman", "Spartan", "TX");
-		PsuedoUser buyer2 = new PsuedoUser("buyer2", "Bob Serviceman2", "STS", "MI");
-		Item item = new Item(0, "description");
+		User seller = new User("seller", "John Sellers", "Exxon", "LA");
+		User buyer = new User("buyer", "Jeff Serviceman", "Spartan", "TX");
+		User buyer2 = new User("buyer2", "Bob Serviceman2", "STS", "MI");
+		Item item = new Item(0, "description", "location");
 		seller.sell(neverEnds, item, 0, 10.01);
 		seller.getAuctionList().get(0).setState(AuctionState.AUCTION_PUBLISHED);
 
@@ -237,7 +239,7 @@ public class UserTest {
 		assertEquals(1, buyer.getAlertList().size());
 		assertEquals(AlertType.LOWER_OFFER_HAPPENED, buyer.getAlertList().get(0).getType());
 
-	}
+	}*/
 
 } 
- */
+ 

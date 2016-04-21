@@ -24,11 +24,13 @@ public class Auction
 	private AuctionState state;
 	private boolean reservePriceReached;
         private double relevancy;
+        private int id;
 
+        //creates a new auction and writes it to a file
 	public Auction (Date auctionEnd, User user, Item item, double priceMin, double priceGuard) throws FileNotFoundException, IOException
         {
-
 		initDefault();
+                this.id = generateId();
 		this.auctionEnd = auctionEnd;
 		seller = user;
 		this.item = item;
@@ -36,14 +38,14 @@ public class Auction
 		this.priceGuard = priceGuard;
                 File ListFile = new File("./docs/AuctionList.txt");
                 Scanner readListFile = new Scanner(ListFile);
-                int auctionID;
                 boolean auctionIsOnFile = false;
                 while(readListFile.hasNextInt())
                 {
-                    if(readListFile.nextInt() == item.getId())
+                    if(readListFile.nextInt() == getId())
                     {
                         auctionIsOnFile = true;
                     }
+                    
                 }
                 if(!auctionIsOnFile)
                 {
@@ -51,29 +53,75 @@ public class Auction
                     FileWriter fileWriter = new FileWriter(new File("./docs/AuctionList.txt"), true);
                     BufferedWriter buffWriter = new BufferedWriter(fileWriter);
                     PrintWriter writeToList = new PrintWriter(buffWriter);
-                    writeToList.println(item.getId());
+                    writeToList.println(getId());
                     writeToList.close();
                     //
-                    PrintWriter writeToFile = new PrintWriter(new File("./docs/Auctions/" + item.getId() + ".txt"));
+                    PrintWriter writeToFile = new PrintWriter(new File("./docs/Auctions/" + getId() + ".txt"));
                     int auctionYear = auctionEnd.getYear() + 1900;
                     writeToFile.println(auctionEnd.getMonth() + " " + auctionEnd.getDay() + " " + auctionYear);
                     writeToFile.println(user.getUsername());
                     writeToFile.println(user.getCompany());
                     writeToFile.println(priceMin);
                     writeToFile.println(priceGuard);
-                    writeToFile.println(item.getId());
+                    writeToFile.println(getId());
                     writeToFile.println();
                     writeToFile.println(item.getDescription());
+                    writeToFile.println();
+                    writeToFile.println("Bids");
                     writeToFile.close();
                     //
                     FileWriter fileWriter2 = new FileWriter(new File("./docs/userfiles/"+user.getUsername()+".auctions.txt"), true);
                     BufferedWriter buffWriter2 = new BufferedWriter(fileWriter2);
                     PrintWriter writeToUser = new PrintWriter(buffWriter2);
-                    writeToUser.println(item.getId());
+                    writeToUser.println(getId());
                     writeToUser.close();
                 }
 	}
+        
+        public Auction (int id, Date auctionEnd, User user, Item item, double priceMin, double priceGuard) throws FileNotFoundException, IOException
+        {
+
+		initDefault();
+                this.id=id;
+		this.auctionEnd = auctionEnd;
+		seller = user;
+		this.item = item;
+		this.priceMin = priceMin;
+		this.priceGuard = priceGuard;
+	}
+        
+        public Auction(int auctionId) throws FileNotFoundException
+        {
+            File AuctionFile = new File("./docs/Auctions/"+auctionId+".txt");
+            Scanner readAuctionFile = new Scanner(AuctionFile);
+            int month = readAuctionFile.nextInt();
+            int day = readAuctionFile.nextInt();
+            int year = readAuctionFile.nextInt();
+            this.auctionEnd = new Date(year, month, day);
+            this.seller = new User(readAuctionFile.next());
+            readAuctionFile.nextLine();
+            String location = readAuctionFile.nextLine();
+            this.priceMin = readAuctionFile.nextDouble();
+            this.priceGuard = readAuctionFile.nextDouble();
+            String description = "";
+            while(readAuctionFile.hasNextLine() && !readAuctionFile.next().equals("Bids:"))
+            {
+                description = description + readAuctionFile.nextLine() + "\n";
+            }
+            this.item = new Item(String.format(description), location);
+        }
 	
+        public int generateId() throws FileNotFoundException
+        {
+            File ListFile = new File("./docs/AuctionList.txt");
+            Scanner readListFile = new Scanner(ListFile);
+            int lastId = 0;
+            while(readListFile.hasNextInt())
+            {
+                lastId = readListFile.nextInt();
+            }
+            return lastId + 1;
+        }
         
 	private void initDefault(){
 
@@ -92,31 +140,35 @@ public class Auction
 	public User getUser() {
 		return seller;
 	}
-        
-        public void setMinPrice(double priceMin)
-        {
-            this.priceMin = priceMin;
-        }
+
 
 	public ArrayList<Bid> getAllBids() {
 		return allBids;
 	}
  
-	public Item getItem() {
+	public Item getItem() 
+        {
 		return item;
 	}
 
-	public double getPriceMin() {
+	public double getPriceMin() 
+        {
 		return priceMin;
 	}
 
-	public double getPriceGuard() {
+	public double getPriceGuard() 
+        {
 		return priceGuard;
 	}
 
 	public AuctionState getState() {
 		return state;
 	}
+        
+        public void setPriceMin(double priceMin)
+        {
+            this.priceMin = priceMin;
+        }
 
         public double getRelevancy()
         {
@@ -283,6 +335,11 @@ public class Auction
 			&& (Double.compare(auction.priceGuard, this.priceGuard) == 0));
             }
 	}
+        
+        public int getId()
+        {
+            return id;
+        }
 	
 	// need to override hashcode as well for equality test
 	@Override

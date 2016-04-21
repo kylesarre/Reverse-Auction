@@ -3,26 +3,14 @@ package ReverseAuctionSystem;
 
 public class Item 
 {
-	private int id;
 	private String description;
         private String location;
 
-	public Item(int id, String description, String location) 
+	public Item(String description, String location) 
         {
 		super();
-		this.id = id;
 		this.description = description;
                 this.location = location;
-	}
-
-	public int getId() 
-        {
-		return id;
-	}
-
-	public void setId(int id) 
-        {
-		this.id = id;
 	}
 
 	public String getDescription() 
@@ -44,7 +32,7 @@ public class Item
         {
             return location;
         }
-	
+	/**
 	// equality test
 	@Override
 	public boolean equals (Object o) 
@@ -60,11 +48,11 @@ public class Item
                            && item.description.equals(this.description);
                 }
 	}
-	
+        */
 	// need to override hashcode as well for equality test
-	@Override
-    public int hashCode() 
-    {
-		return this.id ^ this.description.hashCode();
-    }
+//	@Override
+    //public int hashCode() 
+    //{
+	//	return this.id ^ this.description.hashCode();
+    //}
 }
