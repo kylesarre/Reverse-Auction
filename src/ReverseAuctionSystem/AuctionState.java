@@ -2,7 +2,8 @@
 package ReverseAuctionSystem;
 
 
-public enum AuctionState {
+public enum AuctionState 
+{
     	AUCTION_CREATED,
 	AUCTION_PUBLISHED,
 	AUCTION_CANCELED,

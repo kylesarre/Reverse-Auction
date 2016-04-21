@@ -17,9 +17,9 @@ import javafx.stage.Stage;
 public class Main extends Application
 {
 	private Stage stage;
-    private User loggedUser;
-    private final double MINIMUM_WINDOW_WIDTH = 500.0;
-    private final double MINIMUM_WINDOW_HEIGHT = 300.0;
+        private User loggedUser;
+        private final double MINIMUM_WINDOW_WIDTH = 500.0;
+        private final double MINIMUM_WINDOW_HEIGHT = 300.0;
 
 	@Override
 	public void start(Stage primaryStage) {
