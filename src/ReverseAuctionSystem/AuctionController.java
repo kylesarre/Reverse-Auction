@@ -54,7 +54,7 @@ public class AuctionController
      */
     public String grabCompanyName()
     {
-        return auction.getSeller().getCompany();
+        return auction.getUser().getCompany();
     }
     /**
      * grabs the profile information of the auction owner
@@ -62,7 +62,7 @@ public class AuctionController
      */
     public String grabProfileDesc()
     {
-        return auction.getSeller().getCompany();
+        return auction.getUser().getProfile();
     }
     public String grabJobDesc()
     {
@@ -72,13 +72,9 @@ public class AuctionController
     {
         return auction.getItem().getLocation();
     }
-    public void setPriceMin(double input)
+    public void editPriceMin(double input)
     {
         auction.setMinPrice(input);
-    }
-    public void setCompanyName(String input)
-    {
-        auction.getSeller().setCompany(input);
     }
     /**
      * updates the user interface element in the Controller

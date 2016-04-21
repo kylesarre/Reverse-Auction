@@ -22,7 +22,7 @@ public class CriteriaCompanyName implements Criteria
         List<Auction> locationAuction = new ArrayList<>();
         for(Auction auction: auctions)
         {
-            if(auction.getSeller().getCompany().equals(companyName))
+            if(auction.getUser().getCompany().equals(companyName))
             {
                 locationAuction.add(auction);
             }

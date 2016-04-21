@@ -21,7 +21,7 @@ public class CriteriaLocation implements Criteria
         List<Auction> auctionByLoc = new ArrayList<>();
         for(Auction auction: auctions)
         {
-            if(auction.getSeller().getLocation().equals(location))
+            if(auction.getItem().getLocation().equals(location))
             {
                 auctionByLoc.add(auction);
             }

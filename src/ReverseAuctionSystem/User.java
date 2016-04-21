@@ -1,4 +1,3 @@
-
 package ReverseAuctionSystem;
 
 import ReverseAuctionSystem.Utilities.AlertType;
@@ -59,7 +58,7 @@ public class User implements AlertListener{
 	public ArrayList<Alert> getAlertList() {
 		return alertList;
 	}
-	
+/*	
 	public void sell(Date auctionEnd, Item item){
 
 		if(isSeller)
@@ -73,14 +72,14 @@ public class User implements AlertListener{
 			auctionList.add(new Auction(auctionEnd, this, item, priceMin, priceGuard));
 
 	}
-
+*/
 	public boolean cancelAuction(Auction auction){
 
 		if(auctionList.contains(auction))
 			return auction.setState(AuctionState.AUCTION_CANCELED);
 		return false;
 	}
-	
+/*	
 	public void bid(Auction auction, double amount) {
 
 		if(isBuyer){
@@ -92,14 +91,15 @@ public class User implements AlertListener{
 		}
 
 	}
-
+*/
+        /*
 	public void startAuction(Date auctionEnd, Item item){
 		
 		if(isSeller)
 			auctionList.add(new Auction(auctionEnd, this, item));
 
 	}
-
+*/
 	public String getLogin() {
 		return login;
 	}
