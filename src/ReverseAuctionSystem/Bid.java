@@ -24,9 +24,11 @@ public class Bid
         //creates a new bid and writes it to a file
 	public Bid(int auctionId, double price, User user) throws FileNotFoundException, IOException
         {
-            if(price < getAuction(auctionId).getPriceMin())
+            Date rightNow = new Date();
+            System.out.println(rightNow);
+            System.out.println(getAuction(auctionId).getAuctionEnd());
+            if(price < getAuction(auctionId).getPriceMin() && rightNow.before(getAuction(auctionId).getAuctionEnd()))
             {
-                //setPriceMin(auctionId, price);
                 Auction auction = getAuction(auctionId);
                 this.id = generateId();
                 this.auctionId = auctionId;

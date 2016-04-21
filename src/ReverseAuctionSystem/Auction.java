@@ -97,7 +97,7 @@ public class Auction
             int month = readAuctionFile.nextInt();
             int day = readAuctionFile.nextInt();
             int year = readAuctionFile.nextInt();
-            this.auctionEnd = new Date(year, month, day);
+            this.auctionEnd = new Date(year-1900, month-1, day);
             this.seller = new User(readAuctionFile.next());
             readAuctionFile.nextLine();
             String location = readAuctionFile.nextLine();
