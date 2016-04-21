@@ -18,7 +18,7 @@
             <Button fx:id="exitButton" layoutX="451.0" layoutY="261.0" mnemonicParsing="false" onAction="#exitApplication" text="Exit" />
             <Button layoutX="385.0" layoutY="261.0" mnemonicParsing="false" onAction="#logout" text="Log Out" />
             <Button layoutX="205.0" layoutY="70.0" mnemonicParsing="false" text="View Auctions" />
-            <Button layoutX="212.0" layoutY="110.0" mnemonicParsing="false" text="Your Profile" />
+            <Button layoutX="212.0" layoutY="110.0" mnemonicParsing="false" onAction="#gotoActiveProfile" text="Your Profile" />
             <Button layoutX="203.0" layoutY="150.0" mnemonicParsing="false" text="Search Profiles" />
          </children>
       </AnchorPane>
