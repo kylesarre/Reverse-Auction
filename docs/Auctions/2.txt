@@ -1,10 +1,12 @@
-04 20 16
+3 4 2016
 bob@yahoo.com
-Baton Rouge, LA
-700.00
-700.00
-000002
+Yahoo
+18.0
+18.0
+2
 
-This is the second auction.
-It needs other things.
-Please provide more things.
+description
+more description
+That's all
+
+Bids
