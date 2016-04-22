@@ -21,7 +21,7 @@ public class Auction
 	private User seller;
 	private Item item;
 	private double priceMin, priceGuard;
-	private AuctionState state;
+	//private AuctionState state;
 	private boolean reservePriceReached;
 	private double relevancy;
 	private int id;
@@ -92,7 +92,7 @@ public class Auction
 		this.priceMin = priceMin;
 		this.priceGuard = priceGuard;
 	}
-     
+
         public Auction(int auctionId) throws FileNotFoundException
         {
             File AuctionFile = new File("./docs/Auctions/"+auctionId+".txt");
@@ -113,7 +113,7 @@ public class Auction
             }
             this.item = new Item(String.format(description), location);
         }
-	
+
         public int generateId() throws FileNotFoundException
         {
             File ListFile = new File("./docs/AuctionList.txt");
@@ -125,13 +125,13 @@ public class Auction
             }
             return lastId + 1;
         }
-        
+
 	private void initDefault(){
 
 		allBids = new ArrayList<Bid>();
 		priceMin = 0;
 		priceGuard = -1;
-		state = AuctionState.AUCTION_CREATED;
+		//state = AuctionState.AUCTION_CREATED;
 		reservePriceReached = false;
 
 	}
@@ -166,10 +166,10 @@ public class Auction
 		return priceGuard;
 	}
 
-	public AuctionState getState()
+	/*public AuctionState getState()
 	{
 		return state;
-	}
+	}*/
 
 	public void setPriceMin(double priceMin)
 	{
@@ -185,7 +185,7 @@ public class Auction
 	{
 		this.relevancy = ListSorter.similarity(input, this.seller.getCompany() + " " + this.item.getDescription());
 	}
-
+/*
 	public boolean setState(AuctionState state)
 	{
 
@@ -207,10 +207,10 @@ public class Auction
 
 		return true;
 
-	}
+	}*/
 
 	// checks if the auction has ended
-	public boolean isOver()
+	/*public boolean isOver()
 	{
 		Date date = new Date();
 		if (date.after(auctionEnd))
@@ -221,7 +221,7 @@ public class Auction
 		{
 			return false;
 		}
-	}
+	}*/
 
 	public boolean addBid(Bid bid)
 	{
@@ -229,8 +229,8 @@ public class Auction
 
 		// if auction is invalid
 		// we can't bid on it
-		if (!(state.equals(AuctionState.AUCTION_PUBLISHED)))
-			return false;
+		//if (!(state.equals(AuctionState.AUCTION_PUBLISHED)))
+		//	return false;
 
 		// it is not possible to bid over the minimum price
 		if (bid.getPrice() > this.getPriceMin())
@@ -241,10 +241,10 @@ public class Auction
 		// * return false;
 
 		// disable the auction if the end date is reached
-		if (isOver())
-		{
-			return false;
-		}
+		//if (isOver())
+		//{
+		//	return false;
+		//}
 
 		// if bid to add is higher than the last bid
 		// we refuse it

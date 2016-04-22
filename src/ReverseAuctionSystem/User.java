@@ -58,28 +58,28 @@ public class User implements AlertListener{
 	public ArrayList<Alert> getAlertList() {
 		return alertList;
 	}
-/*	
+/*
 	public void sell(Date auctionEnd, Item item){
 
 		if(isSeller)
 			auctionList.add(new Auction(auctionEnd, this, item));
 
 	}
-	
+
 	public void sell(Date auctionEnd, Item item, double priceMin, double priceGuard){
 
 		if(isSeller)
 			auctionList.add(new Auction(auctionEnd, this, item, priceMin, priceGuard));
 
 	}
-*/
+
 	public boolean cancelAuction(Auction auction){
 
 		if(auctionList.contains(auction))
 			return auction.setState(AuctionState.AUCTION_CANCELED);
 		return false;
 	}
-/*	
+
 	public void bid(Auction auction, double amount) {
 
 		if(isBuyer){
@@ -87,14 +87,14 @@ public class User implements AlertListener{
 			Bid bid = new Bid(amount, this);
 			if(auction.addBid(bid))
 				bidList.add(bid);
-		
+
 		}
 
 	}
 */
         /*
 	public void startAuction(Date auctionEnd, Item item){
-		
+
 		if(isSeller)
 			auctionList.add(new Auction(auctionEnd, this, item));
 
@@ -146,10 +146,10 @@ public class User implements AlertListener{
 	public void setActiveAlert(AlertType type, Boolean state){
 		activeAlerts.put(type, state);
 	}
-	
+
 	// equality test
         @Override
-	public boolean equals (Object o) 
+	public boolean equals (Object o)
         {
             if(o == null)
                 return false;
@@ -159,17 +159,17 @@ public class User implements AlertListener{
             {
                 User user = (User)o;
                 return (user.getLogin().equals(this.getLogin())
-                    && user.getName().equals(this.getName()) 
+                    && user.getName().equals(this.getName())
                     && user.getCompany().equals(this.getCompany()));
-            }            
-	}	
+            }
+	}
 	// need to override hashcode as well for equality test
 	@Override
     public int hashCode() {
 		String str;
-		
+
 		str = this.login + this.name + this.company;
-		
+
 		return str.hashCode();
 	}
 }
