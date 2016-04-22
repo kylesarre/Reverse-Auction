@@ -25,9 +25,7 @@ public class Bid
 	public Bid(int auctionId, double price, User user) throws FileNotFoundException, IOException
         {
             Date rightNow = new Date();
-            System.out.println(rightNow);
-            System.out.println(getAuction(auctionId).getAuctionEnd());
-            if(price < getAuction(auctionId).getPriceMin() && rightNow.before(getAuction(auctionId).getAuctionEnd()))
+            if(price < getAuction(auctionId).getPriceMin() && getAuction(auctionId).isOver() && !getAuction(auctionId).getUser().getUsername().equals(user.getUsername()))
             {
                 Auction auction = getAuction(auctionId);
                 this.id = generateId();
@@ -123,7 +121,7 @@ public class Bid
                 else
                     replacementAuctionData = replacementAuctionData + auctionScanner.nextLine() + "%n";
             }
-            System.out.println(String.format(replacementAuctionData));
+            //System.out.println(String.format(replacementAuctionData));
             PrintWriter overrideOldAuction = new PrintWriter(new File("./docs/Auctions/"+auctionId+".txt"));
             overrideOldAuction.print(String.format(replacementAuctionData));
             overrideOldAuction.close();

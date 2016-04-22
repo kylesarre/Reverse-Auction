@@ -60,7 +60,7 @@ public class Auction
                     int auctionYear = auctionEnd.getYear() + 1900;
                     writeToFile.println(auctionEnd.getMonth() + " " + auctionEnd.getDay() + " " + auctionYear);
                     writeToFile.println(user.getUsername());
-                    writeToFile.println(user.getCompany());
+                    writeToFile.println(item.getLocation());
                     writeToFile.println(priceMin);
                     writeToFile.println(priceGuard);
                     writeToFile.println(getId());
@@ -104,6 +104,7 @@ public class Auction
             this.priceMin = readAuctionFile.nextDouble();
             this.priceGuard = readAuctionFile.nextDouble();
             String description = "";
+            readAuctionFile.nextLine();
             while(readAuctionFile.hasNextLine() && !readAuctionFile.next().equals("Bids:"))
             {
                 description = description + readAuctionFile.nextLine() + "\n";
@@ -346,4 +347,53 @@ public class Auction
     public int hashCode() {
 		return this.seller.hashCode() ^ this.item.hashCode() ^ this.auctionEnd.hashCode();
 	}
+    
+    public double getLowestBid() throws FileNotFoundException
+    {
+        Scanner readAuctionFile = new Scanner(new File("./docs/Auctions/" + id + ".txt"));
+        boolean onBids = false;
+        double lowestBid = 0;
+        while(readAuctionFile.hasNext())
+        {
+            if(readAuctionFile.next().equals("Bids"))
+            {
+                onBids = true;
+            }
+            if(onBids == true && readAuctionFile.hasNextDouble())
+            {
+                while(readAuctionFile.hasNextDouble())
+                {
+                    lowestBid = readAuctionFile.nextDouble();
+                }
+            }
+            else
+                readAuctionFile.nextLine();
+        }
+        return lowestBid;
+    }
+    
+    //one way of printing
+    public String toString1() throws FileNotFoundException
+    {
+        String lowestBid;
+        if(getLowestBid() != 0)
+        {
+            lowestBid = String.format("$%.2f",getLowestBid());
+        }
+        else
+        {
+            lowestBid = "no bids";
+        }
+        String priceGuardString = String.format("%.2f",priceGuard);
+        String auctionOutput = "Auction ID: " + id + "%nEnd Time: " + this.auctionEnd + 
+        "%nHosted By: " + seller.getCompany() + "%nLocation: " + item.getLocation() + 
+        "%nMaximum Starting Bid: " + priceGuardString + "%n%nAuction Description:" + 
+        item.getDescription() + "%nCurrent Lowest Bid: " + lowestBid + "%n";
+        return String.format(auctionOutput);
+    }
+    
+    public String toString2() throws FileNotFoundException
+    {
+        return String.format("%8d %12s %20s %12.2f %20s",id, getItem().getLocation(), getUser().getCompany(), getLowestBid(), auctionEnd.toString());
+    }
 }

@@ -26,22 +26,17 @@ public class AuctionList
             int month = readAuctionFile.nextInt();
             int day = readAuctionFile.nextInt();
             int year = readAuctionFile.nextInt();
-            Date date = new Date(year, month, day);
+            Date date = new Date(year-1900, month, day);
             User user = new User(readAuctionFile.next());
             readAuctionFile.nextLine();
             String location = readAuctionFile.nextLine();
             double priceMin = readAuctionFile.nextDouble();
             double priceGuard = readAuctionFile.nextDouble();
             String description = "";
-            while(readAuctionFile.hasNextLine() && !readAuctionFile.next().equals("Bids:"))
+            while(readAuctionFile.hasNextLine() && !readAuctionFile.next().equals("Bids"))
             {
                 description = description + readAuctionFile.nextLine() + "\n";
             }
-            //while(readAuctionFile.hasNextLine())
-            //{
-                //create Bid
-                //auction.addBid();
-            //}
             Item item = new Item(description, location);
             Auction auction = new Auction(auctionID, date, user, item, priceMin, priceGuard);
             auctions.add(auction);
