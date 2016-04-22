@@ -372,6 +372,20 @@ public class Auction
         return lowestBid;
     }
     
+    public TableAuction toTableAuction() throws FileNotFoundException
+    {
+        String lowestBid;
+        if(getLowestBid() != 0.0)
+        {
+            lowestBid = String.format("$%.2f",getLowestBid());
+        }
+        else
+        {
+            lowestBid = "no bids";
+        }
+        return new TableAuction(id, item.getLocation(), seller.getCompany(), lowestBid, auctionEnd);
+    }
+    
     //one way of printing
     public String toString1() throws FileNotFoundException
     {
