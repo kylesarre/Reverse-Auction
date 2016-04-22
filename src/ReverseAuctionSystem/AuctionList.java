@@ -9,10 +9,10 @@ import application.User;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AuctionList
+public class AuctionList 
 {
     private List<Auction> auctions = new ArrayList<Auction>();
-
+    
     public AuctionList() throws FileNotFoundException, IOException
     {
         File ListFile = new File("./docs/AuctionList.txt");
@@ -26,29 +26,24 @@ public class AuctionList
             int month = readAuctionFile.nextInt();
             int day = readAuctionFile.nextInt();
             int year = readAuctionFile.nextInt();
-            Date date = new Date(year, month, day);
+            Date date = new Date(year-1900, month, day);
             User user = new User(readAuctionFile.next());
             readAuctionFile.nextLine();
             String location = readAuctionFile.nextLine();
             double priceMin = readAuctionFile.nextDouble();
             double priceGuard = readAuctionFile.nextDouble();
             String description = "";
-            while(readAuctionFile.hasNextLine() && !readAuctionFile.next().equals("Bids:"))
+            while(readAuctionFile.hasNextLine() && !readAuctionFile.next().equals("Bids"))
             {
                 description = description + readAuctionFile.nextLine() + "\n";
             }
-            //while(readAuctionFile.hasNextLine())
-            //{
-                //create Bid
-                //auction.addBid();
-            //}
             Item item = new Item(description, location);
             Auction auction = new Auction(auctionID, date, user, item, priceMin, priceGuard);
             auctions.add(auction);
-        }
+        }   
     }
-
-    public List<Auction> getAuctionList()
+    
+    public List getAuctionList()
     {
         return auctions;
     }

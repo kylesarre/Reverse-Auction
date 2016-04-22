@@ -14,20 +14,18 @@ import java.util.Scanner;
  *
  * @author Alex
  */
-public class Bid
+public class Bid 
 {
-	private int auctionId;
-	private double price;
+        private int auctionId;
+	private double price;	
 	private User user;
-	private int id;
+        private int id;
 
-	// creates a new bid and writes it to a file
+        //creates a new bid and writes it to a file
 	public Bid(int auctionId, double price, User user) throws FileNotFoundException, IOException
         {
             Date rightNow = new Date();
-            System.out.println(rightNow);
-            System.out.println(getAuction(auctionId).getAuctionEnd());
-            if(price < getAuction(auctionId).getPriceMin() && rightNow.before(getAuction(auctionId).getAuctionEnd()))
+            if(price < getAuction(auctionId).getPriceMin() && getAuction(auctionId).isOver() && !getAuction(auctionId).getUser().getUsername().equals(user.getUsername()))
             {
                 Auction auction = getAuction(auctionId);
                 this.id = generateId();
@@ -75,98 +73,100 @@ public class Bid
                 }
             }
 	}
-
-	// creates a Bid that is already initialized
-	public Bid(int id, int auctionId, double price, User user) throws FileNotFoundException, IOException
-	{
-		this.id = id;
-		this.auctionId = auctionId;
+        
+        //creates a Bid that is already initialized
+        public Bid(int id, int auctionId, double price, User user) throws FileNotFoundException, IOException
+        {
+                this.id = id;
+                this.auctionId = auctionId;
 		this.price = price;
 		this.user = user;
 	}
+        
+        //creates a new Id for a new Bid
+        public int generateId() throws FileNotFoundException
+        {
+            File ListFile = new File("./docs/BidList.txt");
+            Scanner readListFile = new Scanner(ListFile);
+            int lastId = 0;
+            while(readListFile.hasNextInt())
+            {
+                lastId = readListFile.nextInt();
+            }
+            return lastId + 1;
+        }
+        
+        public void setPriceMin(int auctionId, double priceMin) throws FileNotFoundException, IOException
+        {
+            Auction auction = getAuction(auctionId);
+            String replacementAuctionData = "";
+            Scanner auctionScanner = new Scanner(new File("./docs/Auctions/"+auctionId+".txt"));
+            boolean priceMinSet = false;
+            while(auctionScanner.hasNextLine())
+            {
+                if(auctionScanner.hasNextDouble())
+                {
+                    double newDouble = auctionScanner.nextDouble();
+                    if(newDouble == auction.getPriceMin() && !priceMinSet)
+                    {
+                        replacementAuctionData = replacementAuctionData + priceMin + "%n";
+                        auctionScanner.nextLine();
+                        priceMinSet = true;
+                    }
+                    else
+                    {
+                        replacementAuctionData = replacementAuctionData + (int)newDouble + auctionScanner.nextLine() + "%n";
+                    }
+                }
+                else
+                    replacementAuctionData = replacementAuctionData + auctionScanner.nextLine() + "%n";
+            }
+            //System.out.println(String.format(replacementAuctionData));
+            PrintWriter overrideOldAuction = new PrintWriter(new File("./docs/Auctions/"+auctionId+".txt"));
+            overrideOldAuction.print(String.format(replacementAuctionData));
+            overrideOldAuction.close();
+        }
+        
+        public Auction getAuction(int auctionId) throws FileNotFoundException, IOException
+        {
+            return new Auction(auctionId);
+        }
 
-	// creates a new Id for a new Bid
-	public int generateId() throws FileNotFoundException
-	{
-		File ListFile = new File("./docs/BidList.txt");
-		Scanner readListFile = new Scanner(ListFile);
-		int lastId = 0;
-		while (readListFile.hasNextInt())
-		{
-			lastId = readListFile.nextInt();
-		}
-		return lastId + 1;
-	}
-
-	public void setPriceMin(int auctionId, double priceMin) throws FileNotFoundException, IOException
-	{
-		Auction auction = getAuction(auctionId);
-		String replacementAuctionData = "";
-		Scanner auctionScanner = new Scanner(new File("./docs/Auctions/" + auctionId + ".txt"));
-		boolean priceMinSet = false;
-		while (auctionScanner.hasNextLine())
-		{
-			if (auctionScanner.hasNextDouble())
-			{
-				double newDouble = auctionScanner.nextDouble();
-				if (newDouble == auction.getPriceMin() && !priceMinSet)
-				{
-					replacementAuctionData = replacementAuctionData + priceMin + "%n";
-					auctionScanner.nextLine();
-					priceMinSet = true;
-				} else
-				{
-					replacementAuctionData = replacementAuctionData + (int) newDouble + auctionScanner.nextLine()
-							+ "%n";
-				}
-			} else
-				replacementAuctionData = replacementAuctionData + auctionScanner.nextLine() + "%n";
-		}
-		System.out.println(String.format(replacementAuctionData));
-		PrintWriter overrideOldAuction = new PrintWriter(new File("./docs/Auctions/" + auctionId + ".txt"));
-		overrideOldAuction.print(String.format(replacementAuctionData));
-		overrideOldAuction.close();
-	}
-
-	public Auction getAuction(int auctionId) throws FileNotFoundException, IOException
-	{
-		return new Auction(auctionId);
-	}
-
-	public double getPrice()
-	{
+	public double getPrice() 
+        {
 		return price;
 	}
-
-	public int getId()
-	{
+        
+        public int getId() 
+        {
 		return id;
 	}
 
-	public User getUser()
-	{
+	public User getUser() 
+        {
 		return user;
 	}
-
+	
 	// equality test
 	@Override
-	public boolean equals(Object o)
-	{
-		if (o == null)
-			return false;
-		else if (this.getClass() != o.getClass())
-			return false;
-		else
-		{
-			Bid bid = (Bid) o;
-			return user.equals(this.user) && (bid.price == this.price);
-		}
+	public boolean equals (Object o) 
+        {
+            if(o == null)
+                return false;
+            else if(this.getClass() != o.getClass())
+                return false;
+            else
+            {
+                Bid bid = (Bid)o;
+                return user.equals(this.user) 
+                && (bid.price == this.price);
+            }
 	}
-
+	
 	// need to override hashcode as well for equality test
 	@Override
-	public int hashCode()
-	{
+        public int hashCode() 
+        {
 		return user.hashCode() ^ (int) this.price;
-	}
+        }
 }

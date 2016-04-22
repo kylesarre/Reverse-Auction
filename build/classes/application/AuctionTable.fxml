@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.AuctionTable">
+  <children>
+    <Button fx:id="button" layoutX="484.0" layoutY="271.0" onAction="#handleButtonAction" text="Back" />
+    <Label fx:id="label" layoutX="126.0" layoutY="120.0" minHeight="16.0" minWidth="69.0" />
+    <TableView fx:id="table" layoutX="14.0" layoutY="29.0" prefHeight="221.0" prefWidth="573.0001831054688">
+      <columns>
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="80.0" text="Auction ID" fx:id="idCol" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="85.0" text="Location" fx:id="locationCol" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="104.0" text="Host Company" fx:id="companyCol" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="91.0" text="Current Bid" fx:id="bidCol" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="212.0" text="End Date" fx:id="endCol" />
+      </columns>
+    </TableView>
+  </children>
+</AnchorPane>

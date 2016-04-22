@@ -22,17 +22,17 @@ public class FilterByUserBids implements Criteria
         this.user = user;
     }
     @Override
-    public List<Auction> meetCriteria(List<Auction> auctions)
+    public List<Auction> meetCriteria(List<Auction> auctions) 
     {
         {
 		ArrayList<Auction> UserAuctions = new ArrayList<>();
-
-		for (Auction a : auctions)
+		
+		for (Auction a : auctions) 
                 {
                     if (a.findUserBid(user) != null)
                         UserAuctions.add(a);
 		}
-
+		
 		return UserAuctions;
         }
     }

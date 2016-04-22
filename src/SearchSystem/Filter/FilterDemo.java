@@ -1,8 +1,9 @@
 package SearchSystem.Filter;
 
 import ReverseAuctionSystem.Auction;
+import ReverseAuctionSystem.AuctionList;
 import ReverseAuctionSystem.Item;
-import ReverseAuctionSystem.User;
+import application.User;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,33 +15,17 @@ import java.util.Scanner;
  * @author Kyle Sarre
  * @version 0
  */
-public class FilterDemo {
-/*
-    /**
-     * @param args the command line arguments
-     */
+
+public class FilterDemo 
+{
     public static void main(String[] args) 
-    {/*
+    {
          try
         {
+            List<Auction> auctions = new AuctionList().getAuctionList();
             
-            Scanner sc = new Scanner(new File(args[0]));
-            List<Auction> auctions = new ArrayList<>();
-            
-            while(sc.hasNextLine())
-            {                
-                String date = sc.nextLine();
-                String companyName = sc.nextLine();
-                String jobTitle = sc.nextLine();
-                String priceGuard = sc.nextLine();
-                String minPrice = sc.nextLine();
-                String location = sc.nextLine();
-                sc.nextLine();
-                auctions.add( new Auction(new Date(date), new User("asdf", "asdf", companyName, location), new Item(1, jobTitle), Double.parseDouble(minPrice), Double.parseDouble(priceGuard) ));               
-            }
-            
-            Criteria newCriteria1 = new CriteriaLocation("TX");
-            Criteria newCriteria2 = new CriteriaCompanyName("Occidental Petroleum");
+            Criteria newCriteria1 = new CriteriaLocation("LA");
+            Criteria newCriteria2 = new CriteriaCompanyName("Yahoo");
             
             Criteria andCriteria1 = new AndCriteria(newCriteria1, newCriteria2);
             Criteria orCriteria1 = new OrCriteria(newCriteria1, newCriteria2);
@@ -53,8 +38,8 @@ public class FilterDemo {
             for(Auction auctionA: auctions)
             {
                 System.out.printf("%s%n%s%n%s\n%s%n%n", 
-                auctionA.getSeller().getCompany(),auctionA.getAuctionEnd(),
-                auctionA.getSeller().getLocation(),auctionA.getItem().getDescription());
+                auctionA.getUser().getCompany(),auctionA.getAuctionEnd(),
+                auctionA.getItem().getLocation(),auctionA.getItem().getDescription());
             }
             
             System.out.println("After AND filtering method:");
@@ -63,8 +48,8 @@ public class FilterDemo {
             for(Auction auctionB: filteredAuctions)
             {
                 System.out.printf("%s%n%s%n%s%n%s%n%n", 
-                auctionB.getSeller().getCompany(),auctionB.getAuctionEnd(),
-                auctionB.getSeller().getLocation(),auctionB.getItem().getDescription());
+                auctionB.getUser().getCompany(),auctionB.getAuctionEnd(),
+                auctionB.getItem().getLocation(),auctionB.getItem().getDescription());
             }
             
             System.out.println("After OR filtering method:");
@@ -73,8 +58,8 @@ public class FilterDemo {
             for(Auction auctionB: filteredAuctions2)
             {
                 System.out.printf("%s%n%s%n%s%n%s%n%n", 
-                auctionB.getSeller().getCompany(),auctionB.getAuctionEnd(),
-                auctionB.getSeller().getLocation(),auctionB.getItem().getDescription());
+                auctionB.getUser().getCompany(),auctionB.getAuctionEnd(),
+                auctionB.getItem().getLocation(),auctionB.getItem().getDescription());
             }
         }
         catch(RuntimeException e)
@@ -84,6 +69,7 @@ public class FilterDemo {
         catch(Exception e)
         {
             System.err.println(e);
-        }*/
+        }
     }
+    
 }

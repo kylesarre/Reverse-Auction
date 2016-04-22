@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="319.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.SearchBoxController">
+  <children>
+    <TextField alignment="CENTER" layoutX="150.0" layoutY="88.0" prefWidth="301.0" promptText="Input Search Criteria" />
+    <Text layoutX="168.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Auction Search" textAlignment="CENTER">
+      <font>
+        <Font size="40.0" />
+      </font>
+    </Text>
+    <Button layoutX="267.0" layoutY="121.0" mnemonicParsing="false" text="Search">
+      <font>
+        <Font size="14.0" />
+      </font>
+    </Button>
+    <Button mnemonicParsing="false" onAction="#goBack" text="Return Home" AnchorPane.bottomAnchor="18.0" AnchorPane.rightAnchor="14.0">
+      <font>
+        <Font size="12.0" fx:id="x1" />
+      </font>
+    </Button>
+  </children>
+</AnchorPane>

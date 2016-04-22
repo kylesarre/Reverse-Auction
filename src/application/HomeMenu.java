@@ -17,14 +17,24 @@ public class HomeMenu implements Initializable
 
 	@FXML
 	private Label welcomeText;
+        @FXML
+	private Button profileButton;
+        @FXML
+	private Button createAuctionButton;
+        @FXML
+	private Button viewAuctionButton;
+        @FXML
+	private Button searchAuctionButton;
+        
 	@FXML
 	private Button exitButton;
 
-	public void setApp(Main application){
+	public void setApp(Main application)
+        {
         this.application = application;
         loggedUser = application.getLoggedUser();
         welcomeText.setText("Welcome, " + loggedUser.getCompany());
-    }
+        }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
@@ -51,8 +61,20 @@ public class HomeMenu implements Initializable
 	}
 
 	@FXML
-	protected void gotoAuctionList() throws IOException
+	protected void gotoAuctionTable() throws IOException
 	{
-		application.gotoAuctionList();
+		application.gotoAuctionTable();
+	}
+        
+        @FXML
+	protected void gotoSearchPage() throws IOException
+	{
+		application.gotoSearchPage();
+	}
+        
+        @FXML
+	protected void gotoAuctionCreate() throws IOException
+	{
+		application.gotoAuctionCreation();
 	}
 }

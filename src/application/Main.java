@@ -2,22 +2,35 @@ package application;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class Main extends Application
 {
 	private Stage stage;
-    private User loggedUser;
-    private final double MINIMUM_WINDOW_WIDTH = 500.0;
-    private final double MINIMUM_WINDOW_HEIGHT = 300.0;
+        private User loggedUser;
+        private final double MINIMUM_WINDOW_WIDTH = 500.0;
+        private final double MINIMUM_WINDOW_HEIGHT = 300.0;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -94,18 +107,62 @@ public class Main extends Application
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public void gotoAuctionList()
+    //Spring
+    public void gotoSearchPage()
     {
         try {
-            AuctionListController alist = (AuctionListController) changeScene("AuctionList.fxml");
-            alist.setApp(this);
+            SearchBoxController search = (SearchBoxController) changeScene("SearchBox.fxml");
+            search.setApp(this);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    /* sends the identity of logged-in user to other sections of the program */
+    
+    /**
+    //go to auction list
+    public void gotoAuctionList()
+    {
+        try {
+            AuctionTable view = (AuctionTable) changeScene("AuctionTable.fxml");
+            view.setApp(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    */
+    /**
+    public void gotoAuctionList()
+    {
+        try {
+            AuctionListUI view = (AuctionListUI) changeScene("AuctionList.fxml");
+            view.setApp(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    */
+    
+    public void gotoAuctionTable()
+    {
+        try {
+            AuctionTable view = (AuctionTable) changeScene("AuctionTable.fxml");
+            view.setApp(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void gotoAuctionCreation()
+    {
+        try {
+            CreateAuctionController cA = (CreateAuctionController) changeScene("CreateAuction.fxml");
+            cA.setApp(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /* sends the logged-in user to other parts of the program */
     public User getLoggedUser()
     {
     	return loggedUser;
@@ -150,4 +207,6 @@ public class Main extends Application
         stage.sizeToScene();
         return (Initializable) loader.getController();
 	}
+        
+          
 }
