@@ -23,56 +23,57 @@ public class Bid
 
 	// creates a new bid and writes it to a file
 	public Bid(int auctionId, double price, User user) throws FileNotFoundException, IOException
-	{
-		if (price < getAuction(auctionId).getPriceMin())
-		{
-			// setPriceMin(auctionId, price);
-			Auction auction = getAuction(auctionId);
-			this.id = generateId();
-			this.auctionId = auctionId;
-			this.price = price;
-			this.user = user;
-			File ListFile = new File("./docs/BidList.txt");
-			Scanner readListFile = new Scanner(ListFile);
-			boolean BidIsOnFile = false;
-			while (readListFile.hasNextInt())
-			{
-				if (readListFile.nextInt() == id)
-				{
-					BidIsOnFile = true;
-				}
-			}
-			if (!BidIsOnFile)
-			{
-				// write to BidList
-				FileWriter fileWriter = new FileWriter(new File("./docs/BidList.txt"), true);
-				BufferedWriter buffWriter = new BufferedWriter(fileWriter);
-				PrintWriter writeToList = new PrintWriter(buffWriter);
-				writeToList.println(id);
-				writeToList.close();
-				// write the bid
-				PrintWriter writeToFile = new PrintWriter(new File("./docs/Bids/" + id + ".txt"));
-				writeToFile.println(auctionId);
-				writeToFile.println(price);
-				writeToFile.println(user.getUsername());
-				writeToFile.close();
-				// update User bids
-				FileWriter fileWriter2 = new FileWriter(
-						new File("./docs/userfiles/" + user.getUsername() + ".bids.txt"), true);
-				BufferedWriter buffWriter2 = new BufferedWriter(fileWriter2);
-				PrintWriter writeToUser = new PrintWriter(buffWriter2);
-				writeToUser.println(auctionId + " " + price);
-				writeToUser.close();
-				// update auction file
-				FileWriter fileWriter3 = new FileWriter(new File("./docs/Auctions/" + auctionId + ".txt"), true);
-				BufferedWriter buffWriter3 = new BufferedWriter(fileWriter3);
-				PrintWriter writeToAuction = new PrintWriter(buffWriter3);
-				writeToAuction.println(String.format("%8d  %.2f", id, price));
-				writeToAuction.close();
-				setPriceMin(auctionId, price);
-
-			}
-		}
+        {
+            Date rightNow = new Date();
+            System.out.println(rightNow);
+            System.out.println(getAuction(auctionId).getAuctionEnd());
+            if(price < getAuction(auctionId).getPriceMin() && rightNow.before(getAuction(auctionId).getAuctionEnd()))
+            {
+                Auction auction = getAuction(auctionId);
+                this.id = generateId();
+                this.auctionId = auctionId;
+		this.price = price;
+		this.user = user;
+                File ListFile = new File("./docs/BidList.txt");
+                Scanner readListFile = new Scanner(ListFile);
+                boolean BidIsOnFile = false;
+                while(readListFile.hasNextInt())
+                {
+                    if(readListFile.nextInt() == id)
+                    {
+                        BidIsOnFile = true;
+                    }
+                }
+                if(!BidIsOnFile)
+                {
+                    //write to BidList
+                    FileWriter fileWriter = new FileWriter(new File("./docs/BidList.txt"), true);
+                    BufferedWriter buffWriter = new BufferedWriter(fileWriter);
+                    PrintWriter writeToList = new PrintWriter(buffWriter);
+                    writeToList.println(id);
+                    writeToList.close();
+                    //write the bid
+                    PrintWriter writeToFile = new PrintWriter(new File("./docs/Bids/" + id + ".txt"));
+                    writeToFile.println(auctionId);
+                    writeToFile.println(price);
+                    writeToFile.println(user.getUsername());
+                    writeToFile.close();
+                    //update User bids
+                    FileWriter fileWriter2 = new FileWriter(new File("./docs/userfiles/"+user.getUsername()+".bids.txt"), true);
+                    BufferedWriter buffWriter2 = new BufferedWriter(fileWriter2);
+                    PrintWriter writeToUser = new PrintWriter(buffWriter2);
+                    writeToUser.println(auctionId +  " " +price);
+                    writeToUser.close();
+                    //update auction file
+                    FileWriter fileWriter3 = new FileWriter(new File("./docs/Auctions/"+auctionId+".txt"), true);
+                    BufferedWriter buffWriter3 = new BufferedWriter(fileWriter3);
+                    PrintWriter writeToAuction = new PrintWriter(buffWriter3);
+                    writeToAuction.println(String.format("%8d  %.2f", id, price));
+                    writeToAuction.close();
+                    setPriceMin(auctionId, price);
+                    
+                }
+            }
 	}
 
 	// creates a Bid that is already initialized

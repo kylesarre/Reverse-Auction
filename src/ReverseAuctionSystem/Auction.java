@@ -92,43 +92,41 @@ public class Auction
 		this.priceMin = priceMin;
 		this.priceGuard = priceGuard;
 	}
-
-	public Auction(int auctionId) throws FileNotFoundException
-	{
-		File AuctionFile = new File("./docs/Auctions/" + auctionId + ".txt");
-		Scanner readAuctionFile = new Scanner(AuctionFile);
-		int month = readAuctionFile.nextInt();
-		int day = readAuctionFile.nextInt();
-		int year = readAuctionFile.nextInt();
-		this.auctionEnd = new Date(year, month, day);
-		this.seller = new User(readAuctionFile.next());
-		readAuctionFile.nextLine();
-		String location = readAuctionFile.nextLine();
-		this.priceMin = readAuctionFile.nextDouble();
-		this.priceGuard = readAuctionFile.nextDouble();
-		String description = "";
-		while (readAuctionFile.hasNextLine() && !readAuctionFile.next().equals("Bids:"))
-		{
-			description = description + readAuctionFile.nextLine() + "\n";
-		}
-		this.item = new Item(String.format(description), location);
-	}
-
-	public int generateId() throws FileNotFoundException
-	{
-		File ListFile = new File("./docs/AuctionList.txt");
-		Scanner readListFile = new Scanner(ListFile);
-		int lastId = 0;
-		while (readListFile.hasNextInt())
-		{
-			lastId = readListFile.nextInt();
-		}
-		readListFile.close();
-		return lastId + 1;
-	}
-
-	private void initDefault()
-	{
+     
+        public Auction(int auctionId) throws FileNotFoundException
+        {
+            File AuctionFile = new File("./docs/Auctions/"+auctionId+".txt");
+            Scanner readAuctionFile = new Scanner(AuctionFile);
+            int month = readAuctionFile.nextInt();
+            int day = readAuctionFile.nextInt();
+            int year = readAuctionFile.nextInt();
+            this.auctionEnd = new Date(year-1900, month-1, day);
+            this.seller = new User(readAuctionFile.next());
+            readAuctionFile.nextLine();
+            String location = readAuctionFile.nextLine();
+            this.priceMin = readAuctionFile.nextDouble();
+            this.priceGuard = readAuctionFile.nextDouble();
+            String description = "";
+            while(readAuctionFile.hasNextLine() && !readAuctionFile.next().equals("Bids:"))
+            {
+                description = description + readAuctionFile.nextLine() + "\n";
+            }
+            this.item = new Item(String.format(description), location);
+        }
+	
+        public int generateId() throws FileNotFoundException
+        {
+            File ListFile = new File("./docs/AuctionList.txt");
+            Scanner readListFile = new Scanner(ListFile);
+            int lastId = 0;
+            while(readListFile.hasNextInt())
+            {
+                lastId = readListFile.nextInt();
+            }
+            return lastId + 1;
+        }
+        
+	private void initDefault(){
 
 		allBids = new ArrayList<Bid>();
 		priceMin = 0;
