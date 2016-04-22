@@ -49,4 +49,10 @@ public class HomeMenu implements Initializable
 	{
 		application.gotoProfilePage();
 	}
+
+	@FXML
+	protected void gotoAuctionList() throws IOException
+	{
+		application.gotoAuctionList();
+	}
 }

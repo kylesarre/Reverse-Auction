@@ -9,10 +9,10 @@ import application.User;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AuctionList 
+public class AuctionList
 {
     private List<Auction> auctions = new ArrayList<Auction>();
-    
+
     public AuctionList() throws FileNotFoundException, IOException
     {
         File ListFile = new File("./docs/AuctionList.txt");
@@ -45,10 +45,10 @@ public class AuctionList
             Item item = new Item(description, location);
             Auction auction = new Auction(auctionID, date, user, item, priceMin, priceGuard);
             auctions.add(auction);
-        }   
+        }
     }
-    
-    public List getAuctionList()
+
+    public List<Auction> getAuctionList()
     {
         return auctions;
     }

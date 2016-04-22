@@ -95,7 +95,17 @@ public class Main extends Application
         }
     }
 
-    /* sends the logged-in user to other parts of the program */
+    public void gotoAuctionList()
+    {
+        try {
+            AuctionListController alist = (AuctionListController) changeScene("AuctionList.fxml");
+            alist.setApp(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /* sends the identity of logged-in user to other sections of the program */
     public User getLoggedUser()
     {
     	return loggedUser;
