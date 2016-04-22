@@ -15,9 +15,9 @@ import javafx.stage.Stage;
 public class Main extends Application
 {
 	private Stage stage;
-    private User loggedUser;
-    private final double MINIMUM_WINDOW_WIDTH = 500.0;
-    private final double MINIMUM_WINDOW_HEIGHT = 300.0;
+        private User loggedUser;
+        private final double MINIMUM_WINDOW_WIDTH = 500.0;
+        private final double MINIMUM_WINDOW_HEIGHT = 300.0;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -94,7 +94,50 @@ public class Main extends Application
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    //Spring
+    public void gotoSearchPage()
+    {
+        try {
+            SearchBoxController search = (SearchBoxController) changeScene("SearchBox.fxml");
+            search.setApp(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /**
+    //go to auction list
+    public void gotoAuctionList()
+    {
+        try {
+            AuctionTable view = (AuctionTable) changeScene("AuctionTable.fxml");
+            view.setApp(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    */
+    
+    public void gotoAuctionList()
+    {
+        try {
+            AuctionListUI view = (AuctionListUI) changeScene("AuctionList.fxml");
+            view.setApp(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void gotoAuctionCreation()
+    {
+        try {
+            CreateAuctionController cA = (CreateAuctionController) changeScene("CreateAuction.fxml");
+            cA.setApp(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /* sends the logged-in user to other parts of the program */
     public User getLoggedUser()
     {
