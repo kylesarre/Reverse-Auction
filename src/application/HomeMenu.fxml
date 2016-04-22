@@ -24,7 +24,7 @@
         <Button layoutX="201.0" layoutY="129.0" mnemonicParsing="false" onAction="#gotoAuctionCreate" text="Create Auction" />
         <Button layoutX="209.0" layoutY="94.0" mnemonicParsing="false" onAction="#gotoActiveProfile" text="Your Profile" />
         <Button layoutX="198.0" layoutY="200.0" mnemonicParsing="false" onAction="#gotoSearchPage" text="Search Auctions" />
-        <Button layoutX="203.0" layoutY="164.0" mnemonicParsing="false" onAction="#gotoAuctionList" text="View Auctions" />
+        <Button layoutX="203.0" layoutY="164.0" mnemonicParsing="false" onAction="#gotoAuctionTable" text="View Auctions" />
       </children>
     </AnchorPane>
   </children>

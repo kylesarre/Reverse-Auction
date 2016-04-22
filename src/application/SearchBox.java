@@ -33,21 +33,8 @@ public class SearchBox implements Initializable
 	}
 
 	@FXML
-	protected void logout(ActionEvent event)
+	protected void goBack() throws IOException
 	{
-		application.logout();
-	}
-
-	@FXML
-	protected void exitApplication(ActionEvent event)
-	{
-		Stage stage = (Stage) exitButton.getScene().getWindow();
-		stage.close();
-	}
-
-	@FXML
-	protected void gotoActiveProfile() throws IOException
-	{
-		application.gotoProfilePage();
+		application.gotoHomeMenu();
 	}
 }

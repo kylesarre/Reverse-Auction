@@ -2,15 +2,28 @@ package application;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class Main extends Application
 {
@@ -117,11 +130,22 @@ public class Main extends Application
         }
     }
     */
-    
+    /**
     public void gotoAuctionList()
     {
         try {
             AuctionListUI view = (AuctionListUI) changeScene("AuctionList.fxml");
+            view.setApp(this);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    */
+    
+    public void gotoAuctionTable()
+    {
+        try {
+            AuctionTable view = (AuctionTable) changeScene("AuctionTable.fxml");
             view.setApp(this);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -183,4 +207,6 @@ public class Main extends Application
         stage.sizeToScene();
         return (Initializable) loader.getController();
 	}
+        
+          
 }

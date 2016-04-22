@@ -20,12 +20,10 @@
         <Font size="14.0" />
       </font>
     </Button>
-    <Button mnemonicParsing="false" onAction="#goBack" text="Return Home" AnchorPane.bottomAnchor="18.0" AnchorPane.rightAnchor="120.0">
+    <Button mnemonicParsing="false" onAction="#goBack" text="Return Home" AnchorPane.bottomAnchor="18.0" AnchorPane.rightAnchor="14.0">
       <font>
         <Font size="12.0" fx:id="x1" />
       </font>
     </Button>
-    <Button id="exitApplication" fx:id="exitButton" font="$x1" mnemonicParsing="false" onAction="#exitApplication" text="Exit" AnchorPane.bottomAnchor="18.0" AnchorPane.rightAnchor="10.0" />
-    <Button fx:id="logout" mnemonicParsing="false" onAction="#logout" text="Logout" AnchorPane.bottomAnchor="18.0" AnchorPane.rightAnchor="56.0" />
   </children>
 </AnchorPane>

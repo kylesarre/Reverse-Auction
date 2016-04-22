@@ -61,9 +61,9 @@ public class HomeMenu implements Initializable
 	}
 
 	@FXML
-	protected void gotoAuctionList() throws IOException
+	protected void gotoAuctionTable() throws IOException
 	{
-		application.gotoAuctionList();
+		application.gotoAuctionTable();
 	}
         
         @FXML
