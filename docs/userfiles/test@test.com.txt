@@ -1,7 +1,0 @@
-test@test.com
-password
-Test Inc.
-Service
-We are a company
-
-that does stuff
