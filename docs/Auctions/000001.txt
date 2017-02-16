@@ -1,0 +1,10 @@
+01 01 2016
+test@test.com
+Generic Place Name, NA
+500.00
+500.00
+000001
+
+This is the first auction.
+It needs things.
+Please provide things.

@@ -1,0 +1,56 @@
+July 12, 2015
+1
+Need Tanker Drivers
+LA
+150.27
+500.00
+
+July 13, 2015
+2
+Field Operator
+TX
+432
+763
+
+July 13, 2015
+2
+Petroleum Engineers
+TX
+123
+157
+
+July 14, 2015
+2
+Environmental Technician
+MI
+34
+78
+
+July 14, 2015
+2
+Field Distribution System Worker
+MS
+236
+544
+
+July 15, 2015
+2
+Chemical Operator
+FL
+234
+375
+
+July 16, 2015
+2
+Petroleum Supply Specialist
+IL
+321
+543
+
+July 17, 2015
+2
+Petroleum Transpot Drivers
+LA
+123
+345
+
